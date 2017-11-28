@@ -10,25 +10,11 @@
 
     <modelVersion>4.0.0</modelVersion>
     <artifactId>jactor-web</artifactId>
-
     <name>jactor-rises::jactor-web</name>
-
-    <packaging>war</packaging>
-
     <description>The web module for jactor-rises</description>
 
     <properties>
-        <assertj.version>3.8.0</assertj.version>
-        <jactor.version>1.0-SNAPSHOT</jactor.version>
-        <java.version>1.8</java.version>
-        <junit-jupiter.version>5.0.2</junit-jupiter.version>
         <junit-platform.version>1.0.2</junit-platform.version>
-        <junit-vintage.version>${junit.version}.2</junit-vintage.version>
-
-        <maven-compiler-plugin.version>3.6.2</maven-compiler-plugin.version>
-        <maven-site-plugin.version>3.6</maven-site-plugin.version>
-        <maven-source-plugin.version>3.0.1</maven-source-plugin.version>
-        <maven-surefire-plugin.version>2.19.1</maven-surefire-plugin.version>
     </properties>
 
     <dependencies>
@@ -148,26 +134,6 @@
                     </dependency>
                 </dependencies>
             </plugin>
-
         </plugins>
-
-        <pluginManagement>
-            <plugins>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-war-plugin</artifactId>
-                    <configuration>
-                        <failOnMissingWebXml>false</failOnMissingWebXml>
-                        <archive>
-                            <manifest>
-                                <mainClass>${start-class}</mainClass>
-                                <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
-                            </manifest>
-                        </archive>
-                    </configuration>
-                </plugin>
-            </plugins>
-        </pluginManagement>
-
     </build>
 </project>
