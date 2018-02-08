@@ -1,9 +1,9 @@
 package com.github.jactor.rises.web.dto;
 
 
-import com.github.jactorrises.client.domain.Address;
-import com.github.jactorrises.client.domain.Person;
-import com.github.jactorrises.client.domain.User;
+import com.github.jactor.rises.client.domain.Address;
+import com.github.jactor.rises.client.domain.Person;
+import com.github.jactor.rises.client.domain.User;
 
 /** A class for displaying a user on this web application */
 public class UserDto {

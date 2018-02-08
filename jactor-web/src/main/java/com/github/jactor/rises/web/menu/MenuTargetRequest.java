@@ -1,6 +1,6 @@
 package com.github.jactor.rises.web.menu;
 
-import com.github.jactorrises.client.datatype.Name;
+import com.github.jactor.rises.client.datatype.Name;
 
 public final class MenuTargetRequest {
     private static final ThreadLocal<MenuItemTarget> REQUESTED_BY_THREAD = new ThreadLocal<>();

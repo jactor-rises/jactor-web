@@ -1,10 +1,10 @@
 package com.github.jactor.rises.web.dto;
 
-import com.github.jactorrises.client.datatype.Name;
-import com.github.jactorrises.client.datatype.UserName;
-import com.github.jactorrises.client.domain.Address;
-import com.github.jactorrises.client.domain.Person;
-import com.github.jactorrises.client.domain.User;
+import com.github.jactor.rises.client.datatype.Name;
+import com.github.jactor.rises.client.datatype.UserName;
+import com.github.jactor.rises.client.domain.Address;
+import com.github.jactor.rises.client.domain.Person;
+import com.github.jactor.rises.client.domain.User;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;

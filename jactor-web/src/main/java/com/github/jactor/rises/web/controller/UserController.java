@@ -1,7 +1,7 @@
 package com.github.jactor.rises.web.controller;
 
-import com.github.jactorrises.client.datatype.UserName;
-import com.github.jactorrises.client.facade.UserFacade;
+import com.github.jactor.rises.client.datatype.UserName;
+import com.github.jactor.rises.client.facade.UserFacade;
 import com.github.jactor.rises.web.dto.UserDto;
 import com.github.jactor.rises.web.dto.UserNameDto;
 import org.springframework.beans.factory.annotation.Autowired;

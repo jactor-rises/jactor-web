@@ -1,6 +1,6 @@
 package com.github.jactor.rises.web;
 
-import com.github.jactorrises.client.facade.UserFacade;
+import com.github.jactor.rises.client.facade.UserFacade;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 

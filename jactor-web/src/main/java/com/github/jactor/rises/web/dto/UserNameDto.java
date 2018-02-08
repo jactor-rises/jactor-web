@@ -1,7 +1,7 @@
 package com.github.jactor.rises.web.dto;
 
 import com.github.jactor.rises.web.html.ParameterConstants;
-import com.github.jactorrises.client.datatype.UserName;
+import com.github.jactor.rises.client.datatype.UserName;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.context.request.WebRequest;
 

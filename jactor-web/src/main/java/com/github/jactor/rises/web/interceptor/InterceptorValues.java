@@ -1,6 +1,6 @@
 package com.github.jactor.rises.web.interceptor;
 
-import com.github.jactorrises.client.datatype.Name;
+import com.github.jactor.rises.client.datatype.Name;
 
 /** The values used by the interceptors on this web application */
 final class InterceptorValues {

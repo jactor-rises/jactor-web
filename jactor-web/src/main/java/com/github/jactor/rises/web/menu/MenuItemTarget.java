@@ -1,6 +1,6 @@
 package com.github.jactor.rises.web.menu;
 
-import com.github.jactorrises.client.datatype.Parameter;
+import com.github.jactor.rises.client.datatype.Parameter;
 import org.apache.commons.lang3.Validate;
 
 import javax.servlet.http.HttpServletRequest;

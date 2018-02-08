@@ -1,6 +1,6 @@
 package com.github.jactor.rises.web.menu;
 
-import com.github.jactorrises.client.datatype.Name;
+import com.github.jactor.rises.client.datatype.Name;
 import com.github.jactor.rises.web.JactorWebApplication;
 import org.junit.Rule;
 import org.junit.Test;
