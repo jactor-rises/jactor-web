@@ -1,9 +1,9 @@
-package com.github.jactorrises.web.controller;
+package com.github.jactor.rises.web.controller;
 
 import com.github.jactorrises.client.datatype.UserName;
 import com.github.jactorrises.client.facade.UserFacade;
-import com.github.jactorrises.web.dto.UserDto;
-import com.github.jactorrises.web.dto.UserNameDto;
+import com.github.jactor.rises.web.dto.UserDto;
+import com.github.jactor.rises.web.dto.UserNameDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.context.request.WebRequest;
 
-import static com.github.jactorrises.web.controller.ControllerValues.ATTRIBUTE_USER;
-import static com.github.jactorrises.web.controller.ControllerValues.VIEW_USER;
+import static com.github.jactor.rises.web.controller.ControllerValues.ATTRIBUTE_USER;
+import static com.github.jactor.rises.web.controller.ControllerValues.VIEW_USER;
 
 @Controller
 public class UserController {

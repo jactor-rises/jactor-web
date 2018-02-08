@@ -1,4 +1,4 @@
-package com.github.jactorrises.web.html;
+package com.github.jactor.rises.web.html;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

@@ -1,4 +1,4 @@
-package com.github.jactorrises.web.html;
+package com.github.jactor.rises.web.html;
 
 public final class ParameterConstants {
     private ParameterConstants() { }

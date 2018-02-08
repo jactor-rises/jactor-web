@@ -1,8 +1,8 @@
-package com.github.jactorrises.web;
+package com.github.jactor.rises.web;
 
-import com.github.jactorrises.web.controller.AboutController;
-import com.github.jactorrises.web.controller.HomeController;
-import com.github.jactorrises.web.controller.UserController;
+import com.github.jactor.rises.web.controller.AboutController;
+import com.github.jactor.rises.web.controller.HomeController;
+import com.github.jactor.rises.web.controller.UserController;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;

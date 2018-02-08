@@ -1,4 +1,4 @@
-package com.github.jactorrises.web.controller;
+package com.github.jactor.rises.web.controller;
 
 /** The values used by controllers on this web application */
 final class ControllerValues {

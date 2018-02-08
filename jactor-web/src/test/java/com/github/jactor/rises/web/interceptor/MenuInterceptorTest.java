@@ -1,7 +1,7 @@
-package com.github.jactorrises.web.interceptor;
+package com.github.jactor.rises.web.interceptor;
 
-import com.github.jactorrises.web.menu.MenuFacade;
-import com.github.jactorrises.web.menu.MenuTargetRequest;
+import com.github.jactor.rises.web.menu.MenuFacade;
+import com.github.jactor.rises.web.menu.MenuTargetRequest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -32,7 +32,7 @@ class MenuInterceptorTest {
     }
 
     @DisplayName("should intercept http requests and use the menu facade according to request")
-    @Test void whenHandlingHttpRequestTheAwareMenuItemsAreGathered() throws Exception {
+    @Test void whenHandlingHttpRequestTheAwareMenuItemsAreGathered() {
         ModelAndView modelAndView = new ModelAndView();
         HttpServletRequest mockedHttpServletRequest = mock(HttpServletRequest.class);
 

@@ -1,14 +1,14 @@
-package com.github.jactorrises.web;
+package com.github.jactor.rises.web;
 
-import com.github.jactorrises.web.menu.DefaultMenuFacade;
-import com.github.jactorrises.web.menu.Menu;
-import com.github.jactorrises.web.menu.MenuFacade;
+import com.github.jactor.rises.web.menu.DefaultMenuFacade;
+import com.github.jactor.rises.web.menu.Menu;
+import com.github.jactor.rises.web.menu.MenuFacade;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
-import static com.github.jactorrises.web.menu.Menu.aMenu;
-import static com.github.jactorrises.web.menu.MenuItem.aMenuItem;
+import static com.github.jactor.rises.web.menu.Menu.aMenu;
+import static com.github.jactor.rises.web.menu.MenuItem.aMenuItem;
 
 @SpringBootApplication
 public class JactorWebApplication {

@@ -1,4 +1,4 @@
-package com.github.jactorrises.web.html;
+package com.github.jactor.rises.web.html;
 
 import org.apache.commons.lang3.Validate;
 
@@ -22,7 +22,7 @@ public class WebParameters {
         Map parameters = request.getParameterMap();
 
         request.getParameterMap().keySet().stream().filter(parameterName -> !isLanguageParameter(parameterName) && !isFormSubmit(parameterName)).forEach(
-                parameterName -> parameterMap.put(parameterName.toString(), ((String[]) parameters.get(parameterName))[0])
+                parameterName -> parameterMap.put(parameterName, ((String[]) parameters.get(parameterName))[0])
         );
     }
 

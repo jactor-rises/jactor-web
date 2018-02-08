@@ -1,11 +1,11 @@
-package com.github.jactorrises.web.interceptor;
+package com.github.jactor.rises.web.interceptor;
 
-import com.github.jactorrises.web.menu.MenuFacade;
-import com.github.jactorrises.web.menu.MenuItem;
-import com.github.jactorrises.web.menu.MenuTarget;
-import com.github.jactorrises.web.menu.MenuTargetRequest;
-import com.github.jactorrises.web.menu.Menu;
-import com.github.jactorrises.web.menu.MenuItemTarget;
+import com.github.jactor.rises.web.menu.MenuFacade;
+import com.github.jactor.rises.web.menu.MenuItem;
+import com.github.jactor.rises.web.menu.MenuTarget;
+import com.github.jactor.rises.web.menu.MenuTargetRequest;
+import com.github.jactor.rises.web.menu.Menu;
+import com.github.jactor.rises.web.menu.MenuItemTarget;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.ModelAndView;

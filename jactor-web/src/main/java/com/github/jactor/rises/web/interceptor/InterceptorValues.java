@@ -1,4 +1,4 @@
-package com.github.jactorrises.web.interceptor;
+package com.github.jactor.rises.web.interceptor;
 
 import com.github.jactorrises.client.datatype.Name;
 

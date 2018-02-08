@@ -1,10 +1,10 @@
-package com.github.jactorrises.web.controller;
+package com.github.jactor.rises.web.controller;
 
 import com.github.jactorrises.client.datatype.UserName;
 import com.github.jactorrises.client.domain.User;
 import com.github.jactorrises.client.facade.UserFacade;
-import com.github.jactorrises.web.dto.UserDto;
-import com.github.jactorrises.web.html.ParameterConstants;
+import com.github.jactor.rises.web.dto.UserDto;
+import com.github.jactor.rises.web.html.ParameterConstants;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.platform.runner.JUnitPlatform;

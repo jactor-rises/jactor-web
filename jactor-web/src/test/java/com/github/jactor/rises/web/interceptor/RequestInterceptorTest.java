@@ -1,6 +1,6 @@
-package com.github.jactorrises.web.interceptor;
+package com.github.jactor.rises.web.interceptor;
 
-import com.github.jactorrises.web.html.WebParameter;
+import com.github.jactor.rises.web.html.WebParameter;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -13,8 +13,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static com.github.jactorrises.web.interceptor.InterceptorValues.ATTRIBUTE_ACTION;
-import static com.github.jactorrises.web.interceptor.InterceptorValues.ATTRIBUTE_PARAMETERS;
+import static com.github.jactor.rises.web.interceptor.InterceptorValues.ATTRIBUTE_ACTION;
+import static com.github.jactor.rises.web.interceptor.InterceptorValues.ATTRIBUTE_PARAMETERS;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
 
@@ -29,7 +29,7 @@ class RequestInterceptorTest {
     }
 
     @DisplayName("should set the action attribute on the model")
-    @Test void willSetTheActionAttributeOnTheModel() throws Exception {
+    @Test void willSetTheActionAttributeOnTheModel() {
         when(mockedRequest.getRequestURI()).thenReturn("home.do");
 
         ModelAndView modelAndView = new ModelAndView();
@@ -39,7 +39,7 @@ class RequestInterceptorTest {
     }
 
     @DisplayName("shold set the parameter attribute on the model")
-    @Test void willSetTheParametersAttributeOnTheModel() throws Exception {
+    @Test void willSetTheParametersAttributeOnTheModel() {
         Map<String, String[]> parameterMap = new HashMap<>();
         parameterMap.put("some", new String[]{"parameter"});
 

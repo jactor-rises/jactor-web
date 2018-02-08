@@ -1,4 +1,4 @@
-package com.github.jactorrises.web.menu;
+package com.github.jactor.rises.web.menu;
 
 import com.github.jactorrises.client.datatype.Name;
 import org.junit.jupiter.api.DisplayName;
@@ -8,8 +8,8 @@ import org.junit.runner.RunWith;
 
 import java.util.List;
 
-import static com.github.jactorrises.web.menu.Menu.aMenu;
-import static com.github.jactorrises.web.menu.MenuItem.aMenuItem;
+import static com.github.jactor.rises.web.menu.Menu.aMenu;
+import static com.github.jactor.rises.web.menu.MenuItem.aMenuItem;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
 import static org.assertj.core.api.Assertions.assertThatNullPointerException;

@@ -1,6 +1,6 @@
-package com.github.jactorrises.web.interceptor;
+package com.github.jactor.rises.web.interceptor;
 
-import com.github.jactorrises.web.html.WebParameters;
+import com.github.jactor.rises.web.html.WebParameters;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;

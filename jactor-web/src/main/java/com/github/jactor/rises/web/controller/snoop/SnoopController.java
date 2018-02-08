@@ -1,4 +1,4 @@
-package com.github.jactorrises.web.controller.snoop;
+package com.github.jactor.rises.web.controller.snoop;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;

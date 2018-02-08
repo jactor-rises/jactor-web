@@ -1,4 +1,4 @@
-package com.github.jactorrises.web.dto;
+package com.github.jactor.rises.web.dto;
 
 import com.github.jactorrises.client.datatype.Name;
 import com.github.jactorrises.client.datatype.UserName;

@@ -1,7 +1,7 @@
-package com.github.jactorrises.web.menu;
+package com.github.jactor.rises.web.menu;
 
 import com.github.jactorrises.client.datatype.Name;
-import com.github.jactorrises.web.JactorWebApplication;
+import com.github.jactor.rises.web.JactorWebApplication;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;

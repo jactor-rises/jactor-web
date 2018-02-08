@@ -1,8 +1,8 @@
-package com.github.jactorrises.web.menu.builder;
+package com.github.jactor.rises.web.menu.builder;
 
-import com.github.jactorrises.web.menu.MenuItem;
+import com.github.jactor.rises.web.menu.MenuItem;
 import com.github.jactorrises.client.datatype.Name;
-import com.github.jactorrises.web.menu.Menu;
+import com.github.jactor.rises.web.menu.Menu;
 
 import java.util.ArrayList;
 import java.util.List;
