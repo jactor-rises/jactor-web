@@ -14,7 +14,7 @@
     <description>The web module for jactor-rises</description>
 
     <properties>
-        <junit-platform.version>1.0.2</junit-platform.version>
+        <junit-platform.version>1.0.3</junit-platform.version>
     </properties>
 
     <dependencies>
