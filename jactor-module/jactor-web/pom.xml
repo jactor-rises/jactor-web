@@ -19,8 +19,8 @@
 
     <dependencies>
         <dependency>
-            <groupId>com.github.jactor-rises.commons</groupId>
-            <artifactId>client</artifactId>
+            <groupId>com.github.jactor-rises.jactor-commons</groupId>
+            <artifactId>jactor-client</artifactId>
         </dependency>
         <dependency>
             <groupId>com.github.jactor-rises</groupId>
