@@ -4,13 +4,13 @@
 
     <parent>
         <groupId>com.github.jactor-rises</groupId>
-        <artifactId>jactor-module</artifactId>
+        <artifactId>jactor-modules</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
     <artifactId>jactor-web</artifactId>
-    <name>jactor-module::jactor-web</name>
+    <name>jactor-modules::jactor-web</name>
     <description>The web module for jactor-rises</description>
 
     <properties>
