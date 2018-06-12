@@ -3,28 +3,32 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
     <parent>
-        <groupId>com.github.jactor-rises</groupId>
-        <artifactId>jactor-modules</artifactId>
-        <version>1.0-SNAPSHOT</version>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.0.2.RELEASE</version>
+        <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
     <artifactId>jactor-web</artifactId>
+    <version>1.0-SNAPSHOT</version>
     <name>jactor-modules::jactor-web</name>
     <description>The web module for jactor-rises</description>
 
     <properties>
-        <junit-platform.version>1.0.3</junit-platform.version>
+        <junit-vintage.version>4.12.0</junit-vintage.version>
     </properties>
 
     <dependencies>
         <dependency>
             <groupId>com.github.jactor-rises.jactor-commons</groupId>
             <artifactId>jactor-client</artifactId>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>com.github.jactor-rises</groupId>
             <artifactId>jactor-model</artifactId>
+            <version>${project.version}</version>
         </dependency>
 
         <!-- third party -->
@@ -38,10 +42,6 @@
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-thymeleaf</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
 
@@ -49,12 +49,6 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
-            <version>${spring-boot.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-test</artifactId>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -91,7 +85,6 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-                <version>${spring-boot.version}</version>
             </plugin>
 
             <plugin>
