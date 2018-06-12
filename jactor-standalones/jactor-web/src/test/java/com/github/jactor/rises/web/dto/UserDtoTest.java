@@ -5,21 +5,25 @@ import com.github.jactor.rises.client.datatype.UserName;
 import com.github.jactor.rises.client.domain.Address;
 import com.github.jactor.rises.client.domain.Person;
 import com.github.jactor.rises.client.domain.User;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.MockitoAnnotations;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
 
-@RunWith(MockitoJUnitRunner.class)
-public class UserDtoTest {
+class UserDtoTest {
     @Mock private Address mockedAddress;
     @Mock private User mockedUser;
     @Mock private Person mockedPerson;
 
-    @Test public void willGetTheAddress() {
+    @BeforeEach
+    void initMocking() {
+        MockitoAnnotations.initMocks(this);
+    }
+
+    @Test void willGetTheAddress() {
         mockUserInstance();
         UserDto testUserDto = new UserDto(mockedUser);
 
@@ -29,14 +33,14 @@ public class UserDtoTest {
         assertThat(testUserDto.getZipCode()).isEqualTo(1234);
     }
 
-    @Test public void willGetTheUser() {
+    @Test void willGetTheUser() {
         mockUserInstance();
         UserDto testUserDto = new UserDto(mockedUser);
 
         assertThat(testUserDto.getUserName()).isEqualTo("user");
     }
 
-    @Test public void willGetThePersonForTheUser() {
+    @Test void willGetThePersonForTheUser() {
         mockUserInstance();
         UserDto testUserDto = new UserDto(mockedUser);
 

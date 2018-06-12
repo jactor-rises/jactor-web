@@ -13,8 +13,8 @@ import javax.annotation.Resource;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @ExtendWith(SpringExtension.class)
-@SpringBootTest(classes = JactorWebApplication.class)
-class JactorWebApplicationIntegrationTest {
+@SpringBootTest(classes = JactorWeb.class)
+class JactorWebIntegrationTest {
 
     @Resource private HomeController homeController;
 
