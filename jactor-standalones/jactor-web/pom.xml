@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
     <parent>
@@ -10,13 +11,19 @@
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
+    <groupId>com.github.jactor-rises.jactor-standalones</groupId>
     <artifactId>jactor-web</artifactId>
+
+    <name>jactor-rises::jactor-standalone::jactor-web</name>
+    <description>A web module for jactor-rises</description>
+
     <version>1.0-SNAPSHOT</version>
-    <name>jactor-modules::jactor-web</name>
-    <description>The web module for jactor-rises</description>
 
     <properties>
-        <junit-vintage.version>4.12.0</junit-vintage.version>
+        <java.version>1.8</java.version>
+        <junit-jupiter.version>5.0.3</junit-jupiter.version>
+        <junit-platform.version>1.0.3</junit-platform.version>
+        <mvn-surefire.version>2.19.1</mvn-surefire.version>
     </properties>
 
     <dependencies>
@@ -32,10 +39,6 @@
         </dependency>
 
         <!-- third party -->
-        <dependency>
-            <groupId>org.hsqldb</groupId>
-            <artifactId>hsqldb</artifactId>
-        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter</artifactId>
@@ -117,17 +120,12 @@
 
             <plugin>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>${maven-surefire-plugin.version}</version>
+                <version>${mvn-surefire.version}</version>
                 <dependencies>
                     <dependency>
                         <groupId>org.junit.platform</groupId>
                         <artifactId>junit-platform-surefire-provider</artifactId>
                         <version>${junit-platform.version}</version>
-                    </dependency>
-                    <dependency>
-                        <groupId>org.junit.vintage</groupId>
-                        <artifactId>junit-vintage-engine</artifactId>
-                        <version>${junit-vintage.version}</version>
                     </dependency>
                 </dependencies>
             </plugin>
