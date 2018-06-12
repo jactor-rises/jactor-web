@@ -5,13 +5,11 @@ import com.github.jactor.rises.client.domain.User;
 import com.github.jactor.rises.client.facade.UserFacade;
 import com.github.jactor.rises.web.dto.UserDto;
 import com.github.jactor.rises.web.html.ParameterConstants;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.platform.runner.JUnitPlatform;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.MockitoAnnotations;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.context.request.WebRequest;
 
@@ -25,16 +23,18 @@ import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-@RunWith(MockitoJUnitRunner.class)
-public class UserControllerTest {
+class UserControllerTest {
 
-    @Mock
-    private UserFacade userFacadeMock;
+    private @Mock UserFacade userFacadeMock;
 
-    @InjectMocks
-    private UserController testUserController;
+    private @InjectMocks UserController testUserController;
 
-    @Test public void shouldNotFetchUserByUserNameIfTheUserNameInTheWebRequestIsNullOrAnEmptyString() {
+    @BeforeEach
+    void initMocking() {
+        MockitoAnnotations.initMocks(this);
+    }
+
+    @Test void shouldNotFetchUserByUserNameIfTheUserNameInTheWebRequestIsNullOrAnEmptyString() {
         WebRequest webRequestMock = mock(WebRequest.class);
         when(webRequestMock.getParameter(ParameterConstants.CHOOSE_USER)).thenReturn(null);
 
@@ -48,7 +48,7 @@ public class UserControllerTest {
         verify(userFacadeMock, never()).findUsing(any(UserName.class));
     }
 
-    @Test public void shouldFetchTheUserIfChooseParameterExist() {
+    @Test void shouldFetchTheUserIfChooseParameterExist() {
         WebRequest mockedWebRequest = mock(WebRequest.class);
         ModelMap mockedModelMap = mock(ModelMap.class);
         User mockedUser = mock(User.class);
@@ -61,7 +61,7 @@ public class UserControllerTest {
         verify(mockedModelMap, atLeastOnce()).put(eq(ControllerValues.ATTRIBUTE_USER), any(UserDto.class));
     }
 
-    @Test public void shouldNotPutTheUserOnTheModelIfNotFound() {
+    @Test void shouldNotPutTheUserOnTheModelIfNotFound() {
         WebRequest mockedWebRequest = mock(WebRequest.class);
         ModelMap mockedModelMap = mock(ModelMap.class);
 

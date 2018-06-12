@@ -11,7 +11,7 @@ import static com.github.jactor.rises.web.menu.Menu.aMenu;
 import static com.github.jactor.rises.web.menu.MenuItem.aMenuItem;
 
 @SpringBootApplication
-public class JactorWebApplication {
+public class JactorWeb {
 
     @Bean(name = "jactor.web.menuFacade") public MenuFacade menuFacade() {
         return new DefaultMenuFacade(mainMenu(), personMenu());
@@ -35,6 +35,6 @@ public class JactorWebApplication {
     }
 
     public static void main(String... args) {
-        SpringApplication.run(JactorWebApplication.class, args);
+        SpringApplication.run(JactorWeb.class, args);
     }
 }

@@ -1,33 +1,31 @@
 package com.github.jactor.rises.web.menu;
 
 import com.github.jactor.rises.client.datatype.Name;
-import com.github.jactor.rises.web.JactorWebApplication;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
-import org.junit.runner.RunWith;
+import com.github.jactor.rises.web.JactorWeb;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import javax.annotation.Resource;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
 
-@RunWith(SpringRunner.class)
-@ContextConfiguration(classes = JactorWebApplication.class)
-public class MenuFacadeIntegrationTest {
+@ExtendWith(SpringExtension.class)
+@ContextConfiguration(classes = JactorWeb.class)
+class MenuFacadeIntegrationTest {
     @Resource(name = "jactor.web.menuFacade") private MenuFacade testMenuFacade;
 
-    @Rule public ExpectedException expectedException = ExpectedException.none();
-
-    @Test public void whenFindingMenuItemsAndTheNameIsUnknownTheMethodWillFail() {
-        expectedException.expect(IllegalArgumentException.class);
+    @Test void whenFindingMenuItemsAndTheNameIsUnknownTheMethodWillFail() {
         MenuTarget menuTarget = new MenuTarget(new MenuItemTarget("some target"), new Name("unknown"));
-        testMenuFacade.fetchMenuItemBy(new MenuTargetRequest(menuTarget));
+
+        assertThatIllegalArgumentException()
+                .isThrownBy(() -> testMenuFacade.fetchMenuItemBy(new MenuTargetRequest(menuTarget)));
     }
 
-    @Test public void whenFindingMenuItemsAndTheNameIsKnownTheListOfMenuItemsWillBeReturned() {
+    @Test void whenFindingMenuItemsAndTheNameIsKnownTheListOfMenuItemsWillBeReturned() {
         MenuTarget menuTarget = new MenuTarget(new MenuItemTarget("home.do?choose=jactor"), new Name("main"));
         MenuTargetRequest menuTargetRequest = new MenuTargetRequest(menuTarget);
 
@@ -41,7 +39,7 @@ public class MenuFacadeIntegrationTest {
                 assertThat(menuItem.isChildChosen()).as("home.children").isEqualTo(true);
             } else if (chosenName.equals(itemName)) {
                 assertThat(menuItem.isChosen()).as("menu.main.jactor").isEqualTo(true);
-            } else if (!chosenName.equals(itemName)) {
+            } else {
                 assertThat(menuItem.isChildChosen()).as("other item names").isEqualTo(false);
             }
         }
