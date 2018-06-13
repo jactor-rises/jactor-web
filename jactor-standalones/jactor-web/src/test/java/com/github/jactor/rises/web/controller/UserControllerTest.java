@@ -40,12 +40,12 @@ class UserControllerTest {
 
         testUserController.doUser(mock(ModelMap.class), webRequestMock);
 
-        verify(userFacadeMock, never()).findUsing(any(UserName.class));
+        verify(userFacadeMock, never()).find(any(UserName.class));
         when(webRequestMock.getParameter(ParameterConstants.CHOOSE_USER)).thenReturn(" \n \t");
 
         testUserController.doUser(mock(ModelMap.class), webRequestMock);
 
-        verify(userFacadeMock, never()).findUsing(any(UserName.class));
+        verify(userFacadeMock, never()).find(any(UserName.class));
     }
 
     @Test void shouldFetchTheUserIfChooseParameterExist() {
@@ -54,7 +54,7 @@ class UserControllerTest {
         User mockedUser = mock(User.class);
 
         when(mockedWebRequest.getParameter(ParameterConstants.CHOOSE_USER)).thenReturn("user");
-        when(userFacadeMock.findUsing(new UserName("user"))).thenReturn(Optional.of(mockedUser));
+        when(userFacadeMock.find(new UserName("user"))).thenReturn(Optional.of(mockedUser));
 
         testUserController.doUser(mockedModelMap, mockedWebRequest);
 

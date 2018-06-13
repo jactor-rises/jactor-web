@@ -37,7 +37,7 @@ public class UserController {
         }
 
         UserName userName = userNameDto.getUserName();
-        userFacade.findUsing(userName)
+        userFacade.find(userName)
                 .ifPresent(user -> modelMap.put(ATTRIBUTE_USER, new UserDto(user)));
     }
 }
