@@ -1,7 +1,7 @@
 package com.github.jactor.rises.web.dto;
 
 import com.github.jactor.rises.client.datatype.Name;
-import com.github.jactor.rises.client.datatype.UserName;
+import com.github.jactor.rises.client.datatype.Username;
 import com.github.jactor.rises.client.domain.Address;
 import com.github.jactor.rises.client.domain.Person;
 import com.github.jactor.rises.client.domain.User;
@@ -50,7 +50,7 @@ class UserDtoTest {
     }
 
     private void mockUserInstance() {
-        when(mockedUser.getUserName()).thenReturn(new UserName("user"));
+        when(mockedUser.getUsername()).thenReturn(new Username("user"));
         when(mockedUser.getPerson()).thenReturn(mockedPerson);
         when(mockedPerson.getAddress()).thenReturn(mockedAddress);
         when(mockedPerson.getDescription()).thenReturn("description");
