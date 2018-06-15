@@ -1,28 +1,28 @@
 package com.github.jactor.rises.web.dto;
 
 import com.github.jactor.rises.web.html.ParameterConstants;
-import com.github.jactor.rises.client.datatype.UserName;
+import com.github.jactor.rises.client.datatype.Username;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.context.request.WebRequest;
 
-public class UserNameDto {
-    private UserName userName;
+public class UsernameDto {
+    private Username username;
 
-    public UserNameDto(WebRequest webRequest) {
+    public UsernameDto(WebRequest webRequest) {
         String name = webRequest.getParameter(ParameterConstants.CHOOSE_USER);
 
         if (StringUtils.isBlank(name)) {
             return;
         }
 
-        this.userName = new UserName(name);
+        this.username = new Username(name);
     }
 
-    public UserName getUserName() {
-        return userName;
+    public Username getUsername() {
+        return username;
     }
 
     public boolean hasName() {
-        return userName != null;
+        return username != null;
     }
 }

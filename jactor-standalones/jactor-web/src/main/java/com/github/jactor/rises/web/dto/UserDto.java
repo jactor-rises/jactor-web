@@ -42,7 +42,7 @@ public class UserDto {
     }
 
     String getUserName() {
-        return user.getUserName().asString();
+        return user.getUsername().asString();
     }
 
     String getDescription() {

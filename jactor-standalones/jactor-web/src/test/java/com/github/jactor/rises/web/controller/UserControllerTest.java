@@ -1,6 +1,6 @@
 package com.github.jactor.rises.web.controller;
 
-import com.github.jactor.rises.client.datatype.UserName;
+import com.github.jactor.rises.client.datatype.Username;
 import com.github.jactor.rises.client.domain.User;
 import com.github.jactor.rises.client.facade.UserFacade;
 import com.github.jactor.rises.web.dto.UserDto;
@@ -40,12 +40,12 @@ class UserControllerTest {
 
         testUserController.doUser(mock(ModelMap.class), webRequestMock);
 
-        verify(userFacadeMock, never()).find(any(UserName.class));
+        verify(userFacadeMock, never()).find(any(Username.class));
         when(webRequestMock.getParameter(ParameterConstants.CHOOSE_USER)).thenReturn(" \n \t");
 
         testUserController.doUser(mock(ModelMap.class), webRequestMock);
 
-        verify(userFacadeMock, never()).find(any(UserName.class));
+        verify(userFacadeMock, never()).find(any(Username.class));
     }
 
     @Test void shouldFetchTheUserIfChooseParameterExist() {
@@ -54,7 +54,7 @@ class UserControllerTest {
         User mockedUser = mock(User.class);
 
         when(mockedWebRequest.getParameter(ParameterConstants.CHOOSE_USER)).thenReturn("user");
-        when(userFacadeMock.find(new UserName("user"))).thenReturn(Optional.of(mockedUser));
+        when(userFacadeMock.find(new Username("user"))).thenReturn(Optional.of(mockedUser));
 
         testUserController.doUser(mockedModelMap, mockedWebRequest);
 

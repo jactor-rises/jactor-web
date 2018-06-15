@@ -1,9 +1,9 @@
 package com.github.jactor.rises.web.controller;
 
-import com.github.jactor.rises.client.datatype.UserName;
+import com.github.jactor.rises.client.datatype.Username;
 import com.github.jactor.rises.client.facade.UserFacade;
 import com.github.jactor.rises.web.dto.UserDto;
-import com.github.jactor.rises.web.dto.UserNameDto;
+import com.github.jactor.rises.web.dto.UsernameDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -30,14 +30,14 @@ public class UserController {
     }
 
     private void resolveUser(ModelMap modelMap, WebRequest webRequest) {
-        UserNameDto userNameDto = new UserNameDto(webRequest);
+        UsernameDto usernameDto = new UsernameDto(webRequest);
 
-        if (!userNameDto.hasName()) {
+        if (!usernameDto.hasName()) {
             return;
         }
 
-        UserName userName = userNameDto.getUserName();
-        userFacade.find(userName)
+        Username username = usernameDto.getUsername();
+        userFacade.find(username)
                 .ifPresent(user -> modelMap.put(ATTRIBUTE_USER, new UserDto(user)));
     }
 }
