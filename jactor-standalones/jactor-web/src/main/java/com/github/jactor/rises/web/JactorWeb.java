@@ -1,16 +1,19 @@
 package com.github.jactor.rises.web;
 
+import com.github.jactor.rises.model.facade.JactorFacade;
 import com.github.jactor.rises.web.menu.DefaultMenuFacade;
 import com.github.jactor.rises.web.menu.Menu;
 import com.github.jactor.rises.web.menu.MenuFacade;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Import;
 
 import static com.github.jactor.rises.web.menu.Menu.aMenu;
 import static com.github.jactor.rises.web.menu.MenuItem.aMenuItem;
 
 @SpringBootApplication
+@Import(JactorFacade.class)
 public class JactorWeb {
 
     @Bean(name = "jactor.web.menuFacade") public MenuFacade menuFacade() {
