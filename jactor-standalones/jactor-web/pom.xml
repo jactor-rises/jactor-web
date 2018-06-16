@@ -34,7 +34,7 @@
         </dependency>
         <dependency>
             <groupId>com.github.jactor-rises</groupId>
-            <artifactId>jactor-model</artifactId>
+            <artifactId>jactor-model-facade</artifactId>
             <version>${project.version}</version>
         </dependency>
 
