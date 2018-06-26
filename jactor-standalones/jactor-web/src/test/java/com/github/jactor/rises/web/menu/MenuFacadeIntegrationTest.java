@@ -22,14 +22,14 @@ class MenuFacadeIntegrationTest {
         MenuTarget menuTarget = new MenuTarget(new MenuItemTarget("some target"), new Name("unknown"));
 
         assertThatIllegalArgumentException()
-                .isThrownBy(() -> testMenuFacade.fetchMenuItemBy(new MenuTargetRequest(menuTarget)));
+                .isThrownBy(() -> testMenuFacade.fetchMenuItem(new MenuTargetRequest(menuTarget)));
     }
 
     @Test void whenFindingMenuItemsAndTheNameIsKnownTheListOfMenuItemsWillBeReturned() {
-        MenuTarget menuTarget = new MenuTarget(new MenuItemTarget("home.do?choose=jactor"), new Name("main"));
+        MenuTarget menuTarget = new MenuTarget(new MenuItemTarget("user?user=jactor"), new Name("main"));
         MenuTargetRequest menuTargetRequest = new MenuTargetRequest(menuTarget);
 
-        List<MenuItem> menuItems = testMenuFacade.fetchMenuItemBy(menuTargetRequest);
+        List<MenuItem> menuItems = testMenuFacade.fetchMenuItem(menuTargetRequest);
 
         for (MenuItem menuItem : menuItems) {
             Name itemName = menuItem.getItemName();

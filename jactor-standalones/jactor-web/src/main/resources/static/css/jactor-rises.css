@@ -1,87 +1,86 @@
 body {
-  background-color: #FFFFFF;
-  background-image: url(../images/backgrounds/wood.gif);
-  background-repeat: repeat;
-  color: #333333;
-  font-family: Verdana, Arial, Helvetica, sans-serif;
-  font-size: 13px;
-  line-height: 1.5;
-  margin-left: 0px;
-  margin-top: 0px;
-  padding-top: 0px;
-  text-align: left;
+    background-color: white;
+    background-image: url(../images/backgrounds/wood04.jpg);
+    background-repeat: repeat;
+    color: #333333;
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 13px;
+    line-height: 1.5;
+    margin-left: 20px;
+    margin-top: 0;
+    padding-top: 40px;
+    text-align: left;
 }
 
 #container.main {
-  vertical-align: top;
-  width: 1024px;
+    vertical-align: top;
+    width: 1024px;
 }
 
 #container.menu.left {
-  text-align: left;
-  vertical-align: top;
-  width: 128px;
+    text-align: left;
+    vertical-align: top;
+    width: 128px;
 }
 
 #container.menu.right {
-  text-align: right;
-  vertical-align: top;
-  width: 128px;
+    text-align: right;
+    vertical-align: top;
+    width: 128px;
 }
 
 #page.text.left {
-  text-alight: left;
+    text-align: left;
 }
 
 #content h1 {
-  color: graytext;
-  font-size: 18px;
-  font-weight: bold;
-  padding: 7px 0 20px;
+    color: graytext;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 7px 0 20px;
 }
 
 #content h2 {
-  color: black;
-  font-size: 16px;
-  font-weight: bold;
+    color: black;
+    font-size: 16px;
+    font-weight: bold;
 }
 
 #content p {
-  color: black;
-  font-size: 13px;
+    color: black;
+    font-size: 13px;
 }
 
 #footer {
-  background-color: yellow;
-  text-align: center;
-  width: 1280px;
+    background-color: yellow;
+    text-align: center;
+    width: 1280px;
 }
 
 #header {
-  background-image: url(../images/headers/transparent.wood.gif);
-  background-repeat: no-repeat;
-  width: 1280px;
+    background-repeat: no-repeat;
+    width: 1280px;
 }
 
 #language {
-  text-align: right;
+    text-align: right;
 }
 
 #menu.item {
-  font-size: 0.25em;
-  height: 15px;
-  text-align: left;
-  width: 175px;
-  vertical-align: top;
-  text-align: justify;
+    font-size: 0.25em;
+    height: 15px;
+    align-content: left;
+    width: 175px;
+    vertical-align: top;
+    text-align: justify;
 }
 
 .button {
-  background: url(../images/backgrounds/back01.gif) no-repeat;
-  width: 175px;
-  height: 50px;
-  float: right;
-  text-align: left;
-  font-weight: bold;
-  border-style: none;
+    background: url(../images/backgrounds/back01.gif) no-repeat;
+    width: 175px;
+    height: 50px;
+    float: right;
+    text-align: left;
+    font-weight: bold;
+    border-style: none;
 }

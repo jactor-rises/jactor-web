@@ -1,11 +1,13 @@
 package com.github.jactor.rises.web.dto;
 
 
+import com.github.jactor.rises.client.datatype.Name;
 import com.github.jactor.rises.client.domain.Address;
 import com.github.jactor.rises.client.domain.Person;
 import com.github.jactor.rises.client.domain.User;
 
-/** A class for displaying a user on this web application */
+import java.util.Optional;
+
 public class UserDto {
     private final Address address;
     private final Person person;
@@ -13,32 +15,41 @@ public class UserDto {
 
     public UserDto(User user) {
         this.user = user;
-        person = user.getPerson();
-        address = person != null ? person.getAddress() : null;
+        person = Optional.ofNullable(user).map(User::getPerson).orElse(null);
+        address = Optional.ofNullable(person).map(Person::getAddress).orElse(null);
     }
 
     String getAddressLine1() {
-        return address != null ? address.getAddressLine1() : null;
+        return Optional.ofNullable(address)
+                .map(Address::getAddressLine1).orElse("");
     }
 
     String getAddressLine2() {
-        return address != null ? address.getAddressLine2() : null;
+        return Optional.ofNullable(address)
+                .map(Address::getAddressLine2).orElse("");
+
     }
 
     String getCity() {
-        return address != null ? address.getCity() : null;
+        return Optional.ofNullable(address)
+                .map(Address::getCity).orElse("");
     }
 
     Integer getZipCode() {
-        return address != null ? address.getZipCode() : null;
+        return Optional.ofNullable(address)
+                .map(Address::getZipCode).orElse(null);
     }
 
     String getFirstName() {
-        return person != null && person.getFirstName() != null ? person.getFirstName().asString() : null;
+        return Optional.ofNullable(person)
+                .map(Person::getFirstName)
+                .map(Name::asString).orElse("");
     }
 
     String getSurname() {
-        return person != null && person.getSurname() != null ? person.getSurname().asString() : null;
+        return Optional.ofNullable(person)
+                .map(Person::getSurname)
+                .map(Name::asString).orElse("");
     }
 
     String getUserName() {
@@ -46,6 +57,7 @@ public class UserDto {
     }
 
     String getDescription() {
-        return person != null ? person.getDescription() : null;
+        return Optional.ofNullable(person)
+                .map(Person::getDescription).orElse("");
     }
 }

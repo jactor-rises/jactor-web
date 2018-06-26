@@ -37,7 +37,7 @@ class DefaultMenuFacadeTest {
         MenuItemTarget somewhere = new MenuItemTarget("somewhere");
         DefaultMenuFacade defaultMenuFacadeToTest = new DefaultMenuFacade(aMenu().withName("known.menu").add(aMenuItem()).build());
 
-        assertThatThrownBy(() -> defaultMenuFacadeToTest.fetchMenuItemBy(new MenuTargetRequest(new MenuTarget(somewhere, new Name("unknown.menu")))))
+        assertThatThrownBy(() -> defaultMenuFacadeToTest.fetchMenuItem(new MenuTargetRequest(new MenuTarget(somewhere, new Name("unknown.menu")))))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessageContaining("unknown menu")
                 .hasMessageContaining("known.menu");
@@ -49,7 +49,7 @@ class DefaultMenuFacadeTest {
         MenuItem menuItem = aMenuItem().build();
         DefaultMenuFacade defaultMenuFacadeToTest = new DefaultMenuFacade(aMenu().withName("known.menu").add(menuItem).build());
 
-        List<MenuItem> menuItems = defaultMenuFacadeToTest.fetchMenuItemBy(new MenuTargetRequest(new MenuTarget(somewhere, new Name("known.menu"))));
+        List<MenuItem> menuItems = defaultMenuFacadeToTest.fetchMenuItem(new MenuTargetRequest(new MenuTarget(somewhere, new Name("known.menu"))));
 
         assertThat(menuItems).contains(menuItem);
     }

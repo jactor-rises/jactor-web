@@ -9,5 +9,5 @@ public interface MenuFacade {
      * @param menuTargetRequest determine the menu where the menu item target belongs.
      * @return a list of {@link MenuItem} according to the request.
      */
-    List<MenuItem> fetchMenuItemBy(MenuTargetRequest menuTargetRequest);
+    List<MenuItem> fetchMenuItem(MenuTargetRequest menuTargetRequest);
 }

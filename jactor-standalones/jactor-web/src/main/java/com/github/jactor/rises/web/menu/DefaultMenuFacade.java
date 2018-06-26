@@ -22,7 +22,7 @@ public class DefaultMenuFacade implements MenuFacade {
         }
     }
 
-    @Override public List<MenuItem> fetchMenuItemBy(MenuTargetRequest menuTargetRequest) {
+    @Override public List<MenuItem> fetchMenuItem(MenuTargetRequest menuTargetRequest) {
         Name name = menuTargetRequest.getMenuName();
         isTrue(menusByName.containsKey(name), name + " is an unknown menu. Known menus: " + menusByName.keySet());
 
