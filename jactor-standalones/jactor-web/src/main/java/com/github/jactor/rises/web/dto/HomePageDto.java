@@ -9,11 +9,13 @@ public class HomePageDto {
 
     private final List<Paragraph> paragraphs;
     private final List<Technology> technologies;
+    private final String techsUsed;
     private final String welcomeMsg;
 
-    public HomePageDto(String welcomeMsg, List<Paragraph> paragraphs, List<Technology> technologies) {
+    public HomePageDto(String welcomeMsg, List<Paragraph> paragraphs, String techsUsed, List<Technology> technologies) {
         this.paragraphs = paragraphs;
         this.technologies = technologies;
+        this.techsUsed = techsUsed;
         this.welcomeMsg = welcomeMsg;
     }
 
@@ -29,6 +31,10 @@ public class HomePageDto {
         return technologies;
     }
 
+    public String getTechUsed() {
+        return techsUsed;
+    }
+
     public static class Paragraph {
         private final String content;
 
@@ -37,7 +43,8 @@ public class HomePageDto {
         }
 
         public @Override String toString() {
-            return new ToStringBuilder(this, ToStringStyle.SIMPLE_STYLE).append(getContent()).toString();
+            return new ToStringBuilder(this, ToStringStyle.SIMPLE_STYLE).append(
+                    getContent()).toString();
         }
 
         public String getContent() {

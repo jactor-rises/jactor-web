@@ -7,50 +7,22 @@
     <title>homepage</title>
 </head>
 <body>
-<div with="homepage=${homepage}">homepage variable</div>
-<div id="page.text.left">
-    <h1 th:text="#{page.home.welcome">welcome</h1>
-    <p th:text="#{page.home.paragraph.a">first</p>
-    <p th:text="#{page.home.paragraph.b">second</p>
-    <p th:text="#{page.home.paragraph.c">third</p>
-    <ul>
-        <li>
-            <a href="http://http://maven.apache.org" target="_blanc">Maven</a>
-            <div th:text="#{page.home.tech.maven">for building</div>
-        </li>
-        <li>
-            <a href="https://spring.io/projects/spring-framework" target="_blanc">Spring Framwork</a>
-            <div th:text="#{page.home.tech.springframework">for di</div>
-        </li>
-        <li>
-            <a href="https://spring.io/projects/spring-boot" target="_blanc">Spring Boot</a>
-            <div th:text="#{page.home.tech.springboot">for apps</div>
-        </li>
-        <li>
-            <a href="http://hibernate.org/orm/" target="_blank">Hibernate ORM</a>
-            <div th:text="#{page.home.tech.hibernate}">for persistence</div>
-        </li>
-        <li>
-            <a href="https://www.thymeleaf.org" target="_blanc">Thymeleaf</a>
-            <div th:text="#{page.home.tech.thymeleaf">for web pages</div>
-        </li>
-        <li>
-            <a href="https://junit.org/junit5/" target="_blanc">JUnit</a>
-            <div th:text="#{page.home.tech.junit">for unit testing</div>
-        </li>
-        <li>
-            <a href="http://site.mockito.org" target="_blanc">Mockito</a>
-            <div th:text="#{page.home.tech.mockito">for mocking in unit tests</div>
-        </li>
-        <li>
-            <a href="https://joel-costigliola.github.io/assertj/" target="_blanc">AssertJ</a>
-            <div th:text="#{page.home.tech.assertj">for asserting in unit tests</div>
-        </li>
-        <li>
-            <a href="https://github.com/jactor-rises" target="_blanc">GitHub</a>
-            <div th:text="#{page.home.tech.git">for released source control</div>
-        </li>
-    </ul>
+<div id="page.text.left" th:with="homepage=${homepage}">
+    <h2 th:text="${homepage.getWelcomeMsg()}">jactor-rises</h2>
+    <div th:each="paragraph : ${homepage.getParagraphs()}">
+        <p th:text="${paragraph.getContent()}">This is my sandbox</p>
+    </div>
+    <div th:text="${homepage.getTechUsed()}">tech used:</div>
+    <table th:each="technology : ${homepage.getTechnologies()}">
+        <tr>
+            <td><a th:href="${technology.getUrl()}" target="_blank">
+                <div th:text="${technology.getTech()}">tech</div>
+            </a></td>
+        </tr>
+        <tr>
+            <td th:text="${technology.getMessage()}">tech description</td>
+        </tr>
+    </table>
 </div>
 </body>
 </html>

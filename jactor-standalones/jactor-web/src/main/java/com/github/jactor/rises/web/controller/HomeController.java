@@ -29,6 +29,7 @@ public class HomeController {
                                 new HomePageDto.Paragraph(myMessages.fetchMessage("page.home.paragraph.b")),
                                 new HomePageDto.Paragraph(myMessages.fetchMessage("page.home.paragraph.c"))
                         ),
+                        myMessages.fetchMessage("page.home.techs"),
                         asList(
                                 new HomePageDto.Technology("Maven", "http://maven.apache.org", myMessages.fetchMessage("page.home.tech.maven")),
                                 new HomePageDto.Technology("Spring Framework", "https://spring.io/projects/spring-framework", myMessages.fetchMessage("page.home.tech.springframework")),
