@@ -5,41 +5,68 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
+import java.util.List;
+import java.util.Optional;
+
 import static com.github.jactor.rises.model.domain.address.AddressDomain.anAddress;
 import static com.github.jactor.rises.model.domain.person.PersonDomain.aPerson;
 import static com.github.jactor.rises.model.domain.user.UserDomain.aUser;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertAll;
 
 @ExtendWith(SuppressValidInstanceExtension.class)
 @DisplayName("A UserDto")
 class UserDtoTest {
 
-    @DisplayName("should get the address of the user")
-    @Test void shouldGetTheAddress() {
+    @DisplayName("should fetch the address of the user as a list of strings")
+    @Test void shouldFetchTheAddress() {
         UserDto testUserDto = new UserDto(
                 aUser().with(aPerson().with(anAddress()
                         .withAddressLine1("address line 1")
                         .withAddressLine2("address line 2")
+                        .withAddressLine3("address line 3")
                         .withZipCode(1234)
                         .withCity("somewhere")
                 )).build()
         );
 
-        assertThat(testUserDto.getAddressLine1()).isEqualTo("address line 1");
-        assertThat(testUserDto.getAddressLine2()).isEqualTo("address line 2");
-        assertThat(testUserDto.getCity()).isEqualTo("somewhere");
-        assertThat(testUserDto.getZipCode()).isEqualTo(1234);
+        List<String> address = testUserDto.fetchAddress();
+
+        assertThat(address).containsExactly(
+                "address line 1",
+                "address line 2",
+                "address line 3",
+                "1234",
+                "somewhere"
+        );
     }
 
-    @DisplayName("should get the user name of the user")
-    @Test void shouldGetTheUser() {
+    @DisplayName("should not fetch parts of address being null")
+    @Test void shouldGetTheAddress() {
+        UserDto testUserDto = new UserDto(
+                aUser().with(aPerson().with(anAddress()
+                        .withAddressLine1("address line 1")
+                        .withZipCode(1234)
+                )).build()
+        );
+
+        List<String> address = testUserDto.fetchAddress();
+
+        assertThat(address).containsExactly(
+                "address line 1",
+                "1234"
+        );
+    }
+
+    @DisplayName("should fetch the username of the user")
+    @Test void shouldFetchTheUsername() {
         UserDto testUserDto = new UserDto(aUser().withUsername("user").build());
 
-        assertThat(testUserDto.getUserName()).isEqualTo("user");
+        assertThat(testUserDto.fetchUsername()).isEqualTo("user");
     }
 
-    @DisplayName("should get the person for this user")
-    @Test void shouldGetThePersonForTheUser() {
+    @DisplayName("should fetch the person behind the user")
+    @Test void shouldFetchThePersonBehindTheUser() {
         UserDto testUserDto = new UserDto(
                 aUser().with(aPerson()
                         .withFirstName("John")
@@ -48,8 +75,9 @@ class UserDtoTest {
                 ).build()
         );
 
-        assertThat(testUserDto.getFirstName()).isEqualTo("John");
-        assertThat(testUserDto.getSurname()).isEqualTo("Smith");
-        assertThat(testUserDto.getDescription()).isEqualTo("description");
+        assertAll(
+                () -> assertThat(testUserDto.fetchFullName()).isEqualTo("John Smith"),
+                () -> assertThat(testUserDto.fetchDescription()).isEqualTo(Optional.of("description"))
+        );
     }
 }

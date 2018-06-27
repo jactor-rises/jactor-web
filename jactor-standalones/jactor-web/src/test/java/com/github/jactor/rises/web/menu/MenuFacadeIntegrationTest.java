@@ -26,19 +26,19 @@ class MenuFacadeIntegrationTest {
     }
 
     @Test void whenFindingMenuItemsAndTheNameIsKnownTheListOfMenuItemsWillBeReturned() {
-        MenuTarget menuTarget = new MenuTarget(new MenuItemTarget("user?user=jactor"), new Name("main"));
+        MenuTarget menuTarget = new MenuTarget(new MenuItemTarget("user?choose=jactor"), new Name("main"));
         MenuTargetRequest menuTargetRequest = new MenuTargetRequest(menuTarget);
 
         List<MenuItem> menuItems = testMenuFacade.fetchMenuItem(menuTargetRequest);
 
         for (MenuItem menuItem : menuItems) {
             Name itemName = menuItem.getItemName();
-            Name chosenName = new Name("menu.main.jactor");
+            Name chosenName = new Name("jactor");
 
             if (new Name("menu.main.home").equals(itemName)) {
                 assertThat(menuItem.isChildChosen()).as("home.children").isEqualTo(true);
             } else if (chosenName.equals(itemName)) {
-                assertThat(menuItem.isChosen()).as("menu.main.jactor").isEqualTo(true);
+                assertThat(menuItem.isChosen()).as("jactor").isEqualTo(true);
             } else {
                 assertThat(menuItem.isChildChosen()).as("other item names").isEqualTo(false);
             }

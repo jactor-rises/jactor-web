@@ -4,40 +4,40 @@
     <link rel="stylesheet" type="text/css" href="../static/css/jactor-rises.css" th:href="@{/css/jactor-rises.css}"/>
     <link rel="stylesheet" type="text/css" href="../static/css/syntax.css" th:href="@{/css/syntax.css}"/>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <title th:text="#{page.user.title}">user pages</title>
+    <title>users page</title>
 </head>
 
 <body>
-<div id="page.text.left">
-    <th:block>
-        <th:swithch
-        ="${user}">
-        </th:swithch>
-    </th:block>
-    <c:choose>
-        <c:when test="${user != null}">
-            <p>
-                <fmt:message key="page.user.name"/>
-                : ${user.firstName} ${user.surname}<br/></p>
-            <p>
-                ${user.addressLine1}<br/>
-
-                <c:choose>
-                    <c:when test="{user.addressLine2 != null">
-                        ${user.addressLine2}<br/>
-                    </c:when>
-                </c:choose>
-
-                ${user.zipCode} ${user.city}<br/>
-                <fmt:message key="${user.country}"/>
-            </p>
-
-            <p>${user.description}</p>
-        </c:when>
-        <c:otherwise>
-            <fmt:message key="page.user.nothing"/>
-        </c:otherwise>
-    </c:choose>
+<div id="page.text.left" th:with="user=${user}">
+    <table th:if="${user} != null">
+        <tr>
+            <td th:text="#{page.user.username}">Usrname</td>
+            <td th:text="${user.fetchUsername()}">jactor.rises</td>
+        </tr>
+        <tr>
+            <td th:text="#{page.user.name}">Name</td>
+            <td th:text="${user.fetchFullName()}">TE Jacobsen</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>
+                <table th:each="line : ${user.fetchAddress()}">
+                    <tr>
+                        <td th:text="${line}">Address...</td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td th:text="#{page.user.description}">Description</td>
+            <td th:text="${user.getFullDescription()}">I am what I am...</td>
+        </tr>
+    </table>
+    <div th:if="${unknownUser} != null" th:text="#{page.user.unknown}">
+        did not find
+        <div th:text="${unknownUser}">some user</div>
+    </div>
+    <div th:if="${user} == null" th:text="#{page.user.choose}">choose a user</div>
 </div>
 </body>
 </html>

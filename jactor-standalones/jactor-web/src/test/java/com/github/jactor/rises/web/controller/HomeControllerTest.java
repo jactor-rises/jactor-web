@@ -11,16 +11,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.PropertySource;
-import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
-import java.util.Locale;
 import java.util.Map;
 
-import static org.assertj.core.api.Assertions.*;
 import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -59,7 +55,6 @@ class HomeControllerTest {
                 () -> {
                     HomePageDto homePageDto = (HomePageDto) model.get("homepage");
                     assertAll(
-                            () -> assertThat(homePageDto.getWelcomeMsg()).as("welcomeMsg").isNotNull(),
                             () -> assertThat(homePageDto.getParagraphs()).as("paragraphs").hasSize(3),
                             () -> assertThat(homePageDto.getTechnologies()).as("technologies").hasSize(9)
                     );

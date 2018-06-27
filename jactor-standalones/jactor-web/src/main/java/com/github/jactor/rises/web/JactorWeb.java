@@ -34,8 +34,8 @@ public class JactorWeb implements WebMvcConfigurer {
                 .withName("main")
                 .add(aMenuItem()
                         .withName("menu.main.home").withDescription("menu.main.home.desc").withTarget("home")
-                        .add(aMenuItem().withName("menu.main.jactor").withDescription("menu.main.jactor.desc").withTarget("user?user=jactor"))
-                        .add(aMenuItem().withName("menu.main.tip").withDescription("menu.main.tip.desc").withTarget("user?user=tip"))
+                        .add(aMenuItem().withName("jactor").withTarget("user?choose=jactor"))
+                        .add(aMenuItem().withName("tip").withTarget("user?choose=tip"))
                 ).build();
     }
 

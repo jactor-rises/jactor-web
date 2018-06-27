@@ -23,13 +23,12 @@ public class HomeController {
     @RequestMapping(value = {"/", HOME_VIEW}, method = RequestMethod.GET)
     public ModelAndView get() {
         return new ModelAndView(HOME_VIEW)
-                .addObject("homepage", new HomePageDto(myMessages.fetchMessage("page.home.welcome"),
+                .addObject("homepage", new HomePageDto(
                         asList(
-                                new HomePageDto.Paragraph(myMessages.fetchMessage("page.home.paragraph.a")),
-                                new HomePageDto.Paragraph(myMessages.fetchMessage("page.home.paragraph.b")),
-                                new HomePageDto.Paragraph(myMessages.fetchMessage("page.home.paragraph.c"))
+                                myMessages.fetchMessage("page.home.paragraph.a"),
+                                myMessages.fetchMessage("page.home.paragraph.b"),
+                                myMessages.fetchMessage("page.home.paragraph.c")
                         ),
-                        myMessages.fetchMessage("page.home.techs"),
                         asList(
                                 new HomePageDto.Technology("Maven", "http://maven.apache.org", myMessages.fetchMessage("page.home.tech.maven")),
                                 new HomePageDto.Technology("Spring Framework", "https://spring.io/projects/spring-framework", myMessages.fetchMessage("page.home.tech.springframework")),
@@ -39,7 +38,7 @@ public class HomeController {
                                 new HomePageDto.Technology("Junit", "https://junit.org/junit5/", myMessages.fetchMessage("page.home.tech.junit")),
                                 new HomePageDto.Technology("Mockito", "http://site.mockito.org", myMessages.fetchMessage("page.home.tech.mockito")),
                                 new HomePageDto.Technology("AssertJ", "https://joel-costigliola.github.io/assertj/", myMessages.fetchMessage("page.home.tech.assertj")),
-                                new HomePageDto.Technology("GitHub", "https://github.com/jactor-rises", myMessages.fetchMessage("page.home.tech.git"))
+                                new HomePageDto.Technology("Git", "https://git-scm.com", myMessages.fetchMessage("page.home.tech.git"))
                         )
                 ));
     }

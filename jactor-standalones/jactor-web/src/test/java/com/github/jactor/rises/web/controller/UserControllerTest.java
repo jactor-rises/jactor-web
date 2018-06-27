@@ -4,10 +4,12 @@ import com.github.jactor.rises.client.datatype.Username;
 import com.github.jactor.rises.client.domain.User;
 import com.github.jactor.rises.client.facade.UserFacade;
 import com.github.jactor.rises.web.JactorWeb;
+import com.github.jactor.rises.web.i18n.MyMessages;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -35,7 +37,10 @@ import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standal
 @PropertySource("classpath:application.properties")
 class UserControllerTest {
 
+    private static final String REQUEST_USER = "choose";
+
     private MockMvc mockMvc;
+    private @Autowired MyMessages myMessages;
     private @MockBean UserFacade userFacadeMock;
     private @Value("${spring.mvc.view.prefix}") String prefix;
     private @Value("${spring.mvc.view.suffix}") String suffix;
@@ -45,7 +50,7 @@ class UserControllerTest {
         internalResourceViewResolver.setPrefix(prefix);
         internalResourceViewResolver.setSuffix(suffix);
 
-        mockMvc = standaloneSetup(new UserController(userFacadeMock))
+        mockMvc = standaloneSetup(new UserController(userFacadeMock, myMessages))
                 .setViewResolvers(internalResourceViewResolver)
                 .build();
     }
@@ -60,7 +65,7 @@ class UserControllerTest {
     @DisplayName("should not fetch user by username when the username is requested, but is only whitespace")
     @Test void shouldNotFetchUserByUsernameIfTheUsernameInTheRequestIsNullOrAnEmptyString() throws Exception {
         mockMvc.perform(
-                get("/user").requestAttr(UserController.REQUEST_USER, " \n \t")
+                get("/user").requestAttr(REQUEST_USER, " \n \t")
         ).andExpect(status().isOk());
 
         verify(userFacadeMock, never()).find(any(Username.class));
@@ -71,10 +76,10 @@ class UserControllerTest {
         when(userFacadeMock.find(new Username("jactor"))).thenReturn(Optional.of(mock(User.class)));
 
         ModelAndView modelAndView = mockMvc.perform(
-                get("/user").param(UserController.REQUEST_USER, "jactor")
+                get("/user").param(REQUEST_USER, "jactor")
         ).andExpect(status().isOk()).andReturn().getModelAndView();
 
-        assertThat(modelAndView.getModel().get(UserController.ATTRIBUTE_USER)).isNotNull();
+        assertThat(modelAndView.getModel().get("user")).isNotNull();
     }
 
     @DisplayName("should fetch user by username, but not find user")
@@ -82,9 +87,9 @@ class UserControllerTest {
         when(userFacadeMock.find(any(Username.class))).thenReturn(Optional.empty());
 
         ModelAndView modelAndView = mockMvc.perform(
-                get("/user").param(UserController.REQUEST_USER, "someone")
+                get("/user").param(REQUEST_USER, "someone")
         ).andExpect(status().isOk()).andReturn().getModelAndView();
 
-        assertThat(modelAndView.getModel().get(UserController.ATTRIBUTE_USER_UNKNOWN)).isEqualTo("someone");
+        assertThat(modelAndView.getModel().get("unknownUser")).isEqualTo("someone");
     }
 }

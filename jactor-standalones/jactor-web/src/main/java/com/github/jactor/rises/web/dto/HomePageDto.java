@@ -7,49 +7,20 @@ import java.util.List;
 
 public class HomePageDto {
 
-    private final List<Paragraph> paragraphs;
+    private final List<String> paragraphs;
     private final List<Technology> technologies;
-    private final String techsUsed;
-    private final String welcomeMsg;
 
-    public HomePageDto(String welcomeMsg, List<Paragraph> paragraphs, String techsUsed, List<Technology> technologies) {
+    public HomePageDto(List<String> paragraphs, List<Technology> technologies) {
         this.paragraphs = paragraphs;
         this.technologies = technologies;
-        this.techsUsed = techsUsed;
-        this.welcomeMsg = welcomeMsg;
     }
 
-    public String getWelcomeMsg() {
-        return welcomeMsg;
-    }
-
-    public List<Paragraph> getParagraphs() {
+    public List<String> getParagraphs() {
         return paragraphs;
     }
 
     public List<Technology> getTechnologies() {
         return technologies;
-    }
-
-    public String getTechUsed() {
-        return techsUsed;
-    }
-
-    public static class Paragraph {
-        private final String content;
-
-        public Paragraph(String content) {
-            this.content = content;
-        }
-
-        public @Override String toString() {
-            return new ToStringBuilder(this, ToStringStyle.SIMPLE_STYLE).append(
-                    getContent()).toString();
-        }
-
-        public String getContent() {
-            return content;
-        }
     }
 
     public static class Technology {
