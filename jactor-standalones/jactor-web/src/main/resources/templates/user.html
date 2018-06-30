@@ -8,7 +8,8 @@
 </head>
 
 <body>
-<div id="page.text.left" th:with="user=${user}">
+<div th:include="fragments/header :: header">header</div>
+<div id="alignLeft" th:with="user=${user}">
     <table th:if="${user} != null">
         <tr>
             <td th:text="#{page.user.username}">Usrname</td>

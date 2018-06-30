@@ -56,7 +56,7 @@ class HomeControllerTest {
                     HomePageDto homePageDto = (HomePageDto) model.get("homepage");
                     assertAll(
                             () -> assertThat(homePageDto.getParagraphs()).as("paragraphs").hasSize(3),
-                            () -> assertThat(homePageDto.getTechnologies()).as("technologies").hasSize(9)
+                            () -> assertThat(homePageDto.getTechnologies()).as("technologies").hasSize(8)
                     );
                 }
         );

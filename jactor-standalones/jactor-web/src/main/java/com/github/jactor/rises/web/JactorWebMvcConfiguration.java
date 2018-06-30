@@ -1,5 +1,7 @@
 package com.github.jactor.rises.web;
 
+import com.github.jactor.rises.web.interceptor.RequestInterceptor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -20,13 +22,16 @@ import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
 @PropertySource("classpath:application.properties")
 public class JactorWebMvcConfiguration implements WebMvcConfigurer {
 
+    private final RequestInterceptor requestInterceptor;
     private final String prefix;
     private final String suffix;
 
     public JactorWebMvcConfiguration(
+            @Autowired RequestInterceptor requestInterceptor,
             @Value("${spring.mvc.view.prefix}") String prefix,
             @Value("${spring.mvc.view.suffix}") String suffix
     ) {
+        this.requestInterceptor = requestInterceptor;
         this.prefix = prefix;
         this.suffix = suffix;
     }
@@ -83,5 +88,6 @@ public class JactorWebMvcConfiguration implements WebMvcConfigurer {
 
     public @Override void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(localeChangeInterceptor());
+        registry.addInterceptor(requestInterceptor);
     }
 }

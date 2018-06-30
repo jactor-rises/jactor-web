@@ -5,6 +5,7 @@ import com.github.jactor.rises.client.domain.User;
 import com.github.jactor.rises.client.facade.UserFacade;
 import com.github.jactor.rises.web.JactorWeb;
 import com.github.jactor.rises.web.i18n.MyMessages;
+import com.github.jactor.rises.web.mvc.CurrentUrlManager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -41,6 +42,7 @@ class UserControllerTest {
 
     private MockMvc mockMvc;
     private @Autowired MyMessages myMessages;
+    private @Autowired CurrentUrlManager currentUrlManager;
     private @MockBean UserFacade userFacadeMock;
     private @Value("${spring.mvc.view.prefix}") String prefix;
     private @Value("${spring.mvc.view.suffix}") String suffix;

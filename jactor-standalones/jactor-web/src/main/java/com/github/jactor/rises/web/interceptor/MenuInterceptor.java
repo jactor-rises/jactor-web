@@ -9,19 +9,16 @@ import com.github.jactor.rises.web.menu.MenuTarget;
 import com.github.jactor.rises.web.menu.MenuTargetRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 import java.util.Map;
 
-/**
- * The {@link MenuInterceptor} is a {@link HandlerInterceptorAdapter}  which put the menus on the model.
- */
 @Component
-public class MenuInterceptor extends HandlerInterceptorAdapter {
+public class MenuInterceptor implements HandlerInterceptor {
 
     static final String ATTRIBUTE_MAIN_ITEMS = "mainItems";
     static final String ATTRIBUTE_PERSON_ITEMS = "personItems";

@@ -1,13 +1,25 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
-    <link rel="stylesheet" type="text/css" media="screen" href="../static/css/jactor-rises.css" th:href="@{/css/jactor-rises.css}"/>
+    <link rel="stylesheet" type="text/css" media="screen" href="../static/css/jactor-rises.css"
+          th:href="@{/css/jactor-rises.css}"/>
     <link rel="stylesheet" type="text/css" media="screen" href="../static/css/syntax.css" th:href="@{/css/syntax.css}"/>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <title th:text="#{page.about.title}">about</title>
 </head>
 
 <body>
+<div th:include="fragments/header :: header">header</div>
+<table>
+    <tr>
+        <td>
+            <div class="alignLeft" th:text="#{page.about.contact}">Contact</div>
+        </td>
+        <td>
+            <div class="alignLeft">tor.egil.jacobsen@gmail.com</div>
+        </td>
+    </tr>
+</table>
 </body>
 
 </html>
