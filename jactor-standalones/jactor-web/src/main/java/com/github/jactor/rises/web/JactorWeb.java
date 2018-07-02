@@ -2,9 +2,6 @@ package com.github.jactor.rises.web;
 
 import com.github.jactor.rises.commons.framework.SpringBeanNames;
 import com.github.jactor.rises.model.facade.JactorFacade;
-import com.github.jactor.rises.model.facade.menu.DefaultMenuFacade;
-import com.github.jactor.rises.model.facade.menu.Menu;
-import com.github.jactor.rises.model.facade.MenuFacade;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
@@ -15,8 +12,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Import;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-import static com.github.jactor.rises.model.facade.menu.Menu.aMenu;
-import static com.github.jactor.rises.model.facade.menu.MenuItem.aMenuItem;
 import static java.util.Arrays.stream;
 
 @SpringBootApplication
@@ -24,27 +19,6 @@ import static java.util.Arrays.stream;
 public class JactorWeb implements WebMvcConfigurer {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(JactorWeb.class);
-
-    @Bean public MenuFacade menuFacade() {
-        return new DefaultMenuFacade(mainMenu(), personMenu());
-    }
-
-    private Menu mainMenu() {
-        return aMenu()
-                .withName("main")
-                .add(aMenuItem()
-                        .withName("menu.main.home").withDescription("menu.main.home.desc").withTarget("home")
-                        .add(aMenuItem().withName("jactor").withTarget("user?choose=jactor"))
-                        .add(aMenuItem().withName("tip").withTarget("user?choose=tip"))
-                ).build();
-    }
-
-    private Menu personMenu() {
-        return aMenu()
-                .withName("person")
-                .add(aMenuItem().withName("menu.person.about").withDescription("menu.person.about.desc").withTarget("about"))
-                .build();
-    }
 
     public @Bean CommandLineRunner commandLineRunner(ApplicationContext applicationContext) {
         return args -> inspect(applicationContext, args);
