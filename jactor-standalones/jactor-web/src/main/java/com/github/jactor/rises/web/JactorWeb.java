@@ -4,7 +4,7 @@ import com.github.jactor.rises.commons.framework.SpringBeanNames;
 import com.github.jactor.rises.model.facade.JactorFacade;
 import com.github.jactor.rises.model.facade.menu.DefaultMenuFacade;
 import com.github.jactor.rises.model.facade.menu.Menu;
-import com.github.jactor.rises.model.facade.menu.MenuFacade;
+import com.github.jactor.rises.model.facade.MenuFacade;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
@@ -25,7 +25,7 @@ public class JactorWeb implements WebMvcConfigurer {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(JactorWeb.class);
 
-    @Bean(name = "jactor.web.menuFacade") public MenuFacade menuFacade() {
+    @Bean public MenuFacade menuFacade() {
         return new DefaultMenuFacade(mainMenu(), personMenu());
     }
 

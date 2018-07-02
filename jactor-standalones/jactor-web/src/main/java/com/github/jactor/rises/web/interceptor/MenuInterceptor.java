@@ -2,7 +2,7 @@ package com.github.jactor.rises.web.interceptor;
 
 import com.github.jactor.rises.client.datatype.Name;
 import com.github.jactor.rises.model.facade.menu.Menu;
-import com.github.jactor.rises.model.facade.menu.MenuFacade;
+import com.github.jactor.rises.model.facade.MenuFacade;
 import com.github.jactor.rises.model.facade.menu.MenuItem;
 import com.github.jactor.rises.model.facade.menu.MenuItemTarget;
 import com.github.jactor.rises.model.facade.menu.MenuTarget;

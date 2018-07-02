@@ -1,7 +1,7 @@
 package com.github.jactor.rises.web.menu;
 
 import com.github.jactor.rises.client.datatype.Name;
-import com.github.jactor.rises.model.facade.menu.MenuFacade;
+import com.github.jactor.rises.model.facade.MenuFacade;
 import com.github.jactor.rises.model.facade.menu.MenuItem;
 import com.github.jactor.rises.model.facade.menu.MenuItemTarget;
 import com.github.jactor.rises.model.facade.menu.MenuTarget;
@@ -10,10 +10,10 @@ import com.github.jactor.rises.web.JactorWeb;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import javax.annotation.Resource;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -23,7 +23,7 @@ import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException
 @ContextConfiguration(classes = JactorWeb.class)
 @DisplayName("The MenuFacade")
 class MenuFacadeIntegrationTest {
-    @Resource(name = "jactor.web.menuFacade") private MenuFacade testMenuFacade;
+    private @Autowired MenuFacade testMenuFacade;
 
     @DisplayName("should fail when fetching items for an unknown menu")
     @Test void shouldFailWhenFetchingItemsForAnUnknownMenu() {
