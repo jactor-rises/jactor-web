@@ -1,11 +1,9 @@
-package com.github.jactor.rises.web.menu;
+package com.github.jactor.rises.model.facade.menu;
 
 import com.github.jactor.rises.client.datatype.Name;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.platform.runner.JUnitPlatform;
-import org.junit.runner.RunWith;
 
 import java.util.Collections;
 import java.util.List;
@@ -13,7 +11,6 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
-@RunWith(JUnitPlatform.class)
 @DisplayName("A MenuItemCache")
 class MenuItemCacheTest {
     private MenuItemCache testMenuItemCache;

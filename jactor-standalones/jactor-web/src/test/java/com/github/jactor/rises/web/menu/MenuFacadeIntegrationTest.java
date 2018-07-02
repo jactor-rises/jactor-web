@@ -1,6 +1,11 @@
 package com.github.jactor.rises.web.menu;
 
 import com.github.jactor.rises.client.datatype.Name;
+import com.github.jactor.rises.model.facade.menu.MenuFacade;
+import com.github.jactor.rises.model.facade.menu.MenuItem;
+import com.github.jactor.rises.model.facade.menu.MenuItemTarget;
+import com.github.jactor.rises.model.facade.menu.MenuTarget;
+import com.github.jactor.rises.model.facade.menu.MenuTargetRequest;
 import com.github.jactor.rises.web.JactorWeb;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

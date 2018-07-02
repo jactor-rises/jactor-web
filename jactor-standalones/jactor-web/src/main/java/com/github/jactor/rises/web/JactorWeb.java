@@ -2,9 +2,9 @@ package com.github.jactor.rises.web;
 
 import com.github.jactor.rises.commons.framework.SpringBeanNames;
 import com.github.jactor.rises.model.facade.JactorFacade;
-import com.github.jactor.rises.web.menu.DefaultMenuFacade;
-import com.github.jactor.rises.web.menu.Menu;
-import com.github.jactor.rises.web.menu.MenuFacade;
+import com.github.jactor.rises.model.facade.menu.DefaultMenuFacade;
+import com.github.jactor.rises.model.facade.menu.Menu;
+import com.github.jactor.rises.model.facade.menu.MenuFacade;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
@@ -15,8 +15,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Import;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-import static com.github.jactor.rises.web.menu.Menu.aMenu;
-import static com.github.jactor.rises.web.menu.MenuItem.aMenuItem;
+import static com.github.jactor.rises.model.facade.menu.Menu.aMenu;
+import static com.github.jactor.rises.model.facade.menu.MenuItem.aMenuItem;
 import static java.util.Arrays.stream;
 
 @SpringBootApplication

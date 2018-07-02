@@ -1,12 +1,12 @@
 package com.github.jactor.rises.web.interceptor;
 
 import com.github.jactor.rises.client.datatype.Name;
-import com.github.jactor.rises.web.menu.Menu;
-import com.github.jactor.rises.web.menu.MenuFacade;
-import com.github.jactor.rises.web.menu.MenuItem;
-import com.github.jactor.rises.web.menu.MenuItemTarget;
-import com.github.jactor.rises.web.menu.MenuTarget;
-import com.github.jactor.rises.web.menu.MenuTargetRequest;
+import com.github.jactor.rises.model.facade.menu.Menu;
+import com.github.jactor.rises.model.facade.menu.MenuFacade;
+import com.github.jactor.rises.model.facade.menu.MenuItem;
+import com.github.jactor.rises.model.facade.menu.MenuItemTarget;
+import com.github.jactor.rises.model.facade.menu.MenuTarget;
+import com.github.jactor.rises.model.facade.menu.MenuTargetRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
