@@ -1,7 +1,7 @@
-package com.github.jactor.rises.web.menu;
+package com.github.jactor.rises.model.facade.menu;
 
 import com.github.jactor.rises.client.datatype.Name;
-import com.github.jactor.rises.web.menu.builder.MenuItemBuilder;
+import com.github.jactor.rises.model.facade.menu.builder.MenuItemBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
@@ -29,11 +29,11 @@ public class MenuItem {
         return this;
     }
 
-    boolean isChosen() {
+    public boolean isChosen() {
         return MenuTargetRequest.isRequestFor(menuItemTarget);
     }
 
-    boolean isChildChosen() {
+    public boolean isChildChosen() {
         for (MenuItem menuItem : children) {
             if (menuItem.isChosen()) {
                 return true;
@@ -86,7 +86,7 @@ public class MenuItem {
         return menuItemTarget;
     }
 
-    Name getItemName() {
+    public Name getItemName() {
         return itemName;
     }
 

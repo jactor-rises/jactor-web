@@ -1,4 +1,4 @@
-package com.github.jactor.rises.web.menu;
+package com.github.jactor.rises.model.facade.menu;
 
 import com.github.jactor.rises.client.datatype.Name;
 import org.apache.commons.lang3.builder.ToStringBuilder;

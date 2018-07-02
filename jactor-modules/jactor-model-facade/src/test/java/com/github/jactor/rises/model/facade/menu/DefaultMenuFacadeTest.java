@@ -1,21 +1,18 @@
-package com.github.jactor.rises.web.menu;
+package com.github.jactor.rises.model.facade.menu;
 
 import com.github.jactor.rises.client.datatype.Name;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.platform.runner.JUnitPlatform;
-import org.junit.runner.RunWith;
 
 import java.util.List;
 
-import static com.github.jactor.rises.web.menu.Menu.aMenu;
-import static com.github.jactor.rises.web.menu.MenuItem.aMenuItem;
+import static com.github.jactor.rises.model.facade.menu.Menu.aMenu;
+import static com.github.jactor.rises.model.facade.menu.MenuItem.aMenuItem;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
 import static org.assertj.core.api.Assertions.assertThatNullPointerException;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-@RunWith(JUnitPlatform.class)
 @DisplayName("A DefaultMenuFacade")
 class DefaultMenuFacadeTest {
 

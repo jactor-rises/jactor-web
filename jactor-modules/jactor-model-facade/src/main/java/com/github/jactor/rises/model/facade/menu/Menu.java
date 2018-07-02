@@ -1,7 +1,7 @@
-package com.github.jactor.rises.web.menu;
+package com.github.jactor.rises.model.facade.menu;
 
-import com.github.jactor.rises.web.menu.builder.MenuBuilder;
 import com.github.jactor.rises.client.datatype.Name;
+import com.github.jactor.rises.model.facade.menu.builder.MenuBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
