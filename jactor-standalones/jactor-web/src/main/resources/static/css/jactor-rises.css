@@ -1,29 +1,19 @@
 body {
+    margin-bottom: 60px; /* margin at the bottom of the hotm page, should match footer height */
     background: url(../images/backgrounds/wood04.jpg);
-    background-repeat: repeat;
-    color: #333333;
+}
+
+body > .container {
+    padding: 0 0 0;
     font-family: Verdana, Arial, Helvetica, sans-serif;
-    font-size: 13px;
-    line-height: 1.5;
-    margin-left: 20px;
-    margin-top: 0;
-    text-align: left;
 }
 
-#containerMain {
-    vertical-align: top;
-}
+/* header/footer
+-------------------------------------------------- */
 
-#containerMenuLeft {
-    text-align: left;
-    vertical-align: top;
-    width: 128px;
-}
-
-#containerMenuRight {
-    text-align: right;
-    vertical-align: top;
-    width: 128px;
+.header > .container > table {
+    table-layout: fixed;
+    min-width: 512px;
 }
 
 #alignLeft {
@@ -50,49 +40,18 @@ body {
     alignment: right;
 }
 
-h1 {
-    color: graytext;
-    font-size: 18px;
-    font-weight: bold;
-    padding: 7px 0 20px;
+/* footer sticks to the bottom
+-------------------------------------------------- */
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 2048px;
+    height: 60px; /* the hight of the footer */
+    line-height: 60px; /* Vertically center the text there */
+    background-color: #f5f5f5;
 }
 
-h2 {
-    color: black;
-    font-size: 16px;
-    font-weight: bold;
-}
-
-p {
-    color: black;
-    font-size: 13px;
-}
-
-#header {
-    align-content: center;
-    width: 1280px;
-}
-
-#footer {
-    text-align: center;
-    width: 1280px;
-}
-
-#menu.item {
-    font-size: 0.25em;
-    height: 15px;
-    align-content: left;
-    width: 175px;
-    vertical-align: top;
-    text-align: justify;
-}
-
-.button {
-    background: url(../images/backgrounds/background01.gif) no-repeat;
-    width: 175px;
-    height: 50px;
-    float: right;
-    text-align: left;
-    font-weight: bold;
-    border-style: none;
+.footer > .container {
+    padding-right: 0;
+    padding-left: 0;
 }
