@@ -1,57 +1,54 @@
 package com.github.jactor.rises.web.interceptor;
 
-import com.github.jactor.rises.web.html.WebParameter;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.i18n.LocaleContextHolder;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.HashMap;
-import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
-import static com.github.jactor.rises.web.interceptor.InterceptorValues.ATTRIBUTE_ACTION;
-import static com.github.jactor.rises.web.interceptor.InterceptorValues.ATTRIBUTE_PARAMETERS;
+import static com.github.jactor.rises.web.interceptor.RequestInterceptor.CURRENT_URL;
+import static com.github.jactor.rises.web.mvc.LanguageManager.IS_ENGLISH;
+import static com.github.jactor.rises.web.mvc.LanguageManager.IS_NORWEGIAN;
+import static com.github.jactor.rises.web.mvc.LanguageManager.IS_THAI;
+import static com.github.jactor.rises.web.mvc.LanguageManager.LANG;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.mockito.Mockito.when;
 
+@ExtendWith(SpringExtension.class)
+@SpringBootTest
 @DisplayName("A RequestInterceptor")
 class RequestInterceptorTest {
-    private RequestInterceptor testRequestInterceptor = new RequestInterceptor();
 
-    @Mock private HttpServletRequest mockedRequest;
+    private @Autowired RequestInterceptor requestInterceptorToTest;
+    private @MockBean HttpServletRequest httpServletRequestMock;
 
-    @BeforeEach void initMocks() {
-        MockitoAnnotations.initMocks(this);
-    }
-
-    @DisplayName("should set the action attribute on the model")
-    @Test void willSetTheActionAttributeOnTheModel() {
-        when(mockedRequest.getRequestURI()).thenReturn("home.do");
-
+    @DisplayName("should add information to the model")
+    @Test void shouldAddInformationToTheModel() {
+        LocaleContextHolder.setLocale(new Locale("no"));
         ModelAndView modelAndView = new ModelAndView();
-        testRequestInterceptor.postHandle(mockedRequest, null, null, modelAndView);
 
-        assertThat(modelAndView.getModel().get(ATTRIBUTE_ACTION)).isEqualTo("home.do");
-    }
+        when(httpServletRequestMock.getRequestURI()).thenReturn("/somewhere");
+        when(httpServletRequestMock.getQueryString()).thenReturn("out=there&lang=something&another=param");
 
-    @DisplayName("shold set the parameter attribute on the model")
-    @Test void willSetTheParametersAttributeOnTheModel() {
-        Map<String, String[]> parameterMap = new HashMap<>();
-        parameterMap.put("some", new String[]{"parameter"});
+        requestInterceptorToTest.postHandle(httpServletRequestMock, null, null, modelAndView);
 
-        when(mockedRequest.getParameterMap()).thenReturn(parameterMap);
+        Map<String, Object> model = modelAndView.getModel();
 
-        ModelAndView modelAndView = new ModelAndView();
-        testRequestInterceptor.postHandle(mockedRequest, null, null, modelAndView);
-
-        @SuppressWarnings("unchecked") List<WebParameter> webParams = (List<WebParameter>) modelAndView.getModel().get(ATTRIBUTE_PARAMETERS);
-
-        assertThat(webParams).as("WebParameters").hasSize(1);
-        assertThat(webParams.get(0).getName()).as("WebParameter.name").isEqualTo("some");
-        assertThat(webParams.get(0).getValue()).as("WebParameter.value").isEqualTo("parameter");
+        assertAll(
+                () -> assertThat(model.get(CURRENT_URL)).as(CURRENT_URL).isEqualTo("/somewhere?out=there&another=param"),
+                () -> assertThat(model.get(IS_ENGLISH)).as(IS_ENGLISH).isEqualTo(false),
+                () -> assertThat(model.get(IS_NORWEGIAN)).as(IS_NORWEGIAN).isEqualTo(true),
+                () -> assertThat(model.get(IS_THAI)).as(IS_THAI).isEqualTo(false),
+                () -> assertThat(model.get(LANG)).isEqualTo("no")
+        );
     }
 }

@@ -3,70 +3,94 @@ package com.github.jactor.rises.web.controller;
 import com.github.jactor.rises.client.datatype.Username;
 import com.github.jactor.rises.client.domain.User;
 import com.github.jactor.rises.client.facade.UserFacade;
-import com.github.jactor.rises.web.dto.UserDto;
-import com.github.jactor.rises.web.html.ParameterConstants;
+import com.github.jactor.rises.web.JactorWeb;
+import com.github.jactor.rises.web.i18n.MyMessages;
+import com.github.jactor.rises.web.mvc.CurrentUrlManager;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
-import org.springframework.ui.ModelMap;
-import org.springframework.web.context.request.WebRequest;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 import java.util.Optional;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.atLeastOnce;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standaloneSetup;
 
+@ExtendWith(SpringExtension.class)
+@SpringBootTest(classes = {JactorWeb.class})
+@DisplayName("The UserController")
+@PropertySource("classpath:application.properties")
 class UserControllerTest {
 
-    private @Mock UserFacade userFacadeMock;
+    private static final String REQUEST_USER = "choose";
 
-    private @InjectMocks UserController testUserController;
+    private MockMvc mockMvc;
+    private @Autowired MyMessages myMessages;
+    private @MockBean UserFacade userFacadeMock;
+    private @Value("${spring.mvc.view.prefix}") String prefix;
+    private @Value("${spring.mvc.view.suffix}") String suffix;
 
-    @BeforeEach
-    void initMocking() {
-        MockitoAnnotations.initMocks(this);
+    @BeforeEach void mockMvcWithViewResolver() {
+        InternalResourceViewResolver internalResourceViewResolver = new InternalResourceViewResolver();
+        internalResourceViewResolver.setPrefix(prefix);
+        internalResourceViewResolver.setSuffix(suffix);
+
+        mockMvc = standaloneSetup(new UserController(userFacadeMock, myMessages))
+                .setViewResolvers(internalResourceViewResolver)
+                .build();
     }
 
-    @Test void shouldNotFetchUserByUserNameIfTheUserNameInTheWebRequestIsNullOrAnEmptyString() {
-        WebRequest webRequestMock = mock(WebRequest.class);
-        when(webRequestMock.getParameter(ParameterConstants.CHOOSE_USER)).thenReturn(null);
-
-        testUserController.doUser(mock(ModelMap.class), webRequestMock);
+    @DisplayName("should not fetch user by username if the username is missing from the request")
+    @Test void shouldNotFetchUserByUsernameIfTheUsernameIsMissongFromTheRequest() throws Exception {
+        mockMvc.perform(get("/user")).andExpect(status().isOk());
 
         verify(userFacadeMock, never()).find(any(Username.class));
-        when(webRequestMock.getParameter(ParameterConstants.CHOOSE_USER)).thenReturn(" \n \t");
+    }
 
-        testUserController.doUser(mock(ModelMap.class), webRequestMock);
+    @DisplayName("should not fetch user by username when the username is requested, but is only whitespace")
+    @Test void shouldNotFetchUserByUsernameIfTheUsernameInTheRequestIsNullOrAnEmptyString() throws Exception {
+        mockMvc.perform(
+                get("/user").requestAttr(REQUEST_USER, " \n \t")
+        ).andExpect(status().isOk());
 
         verify(userFacadeMock, never()).find(any(Username.class));
     }
 
-    @Test void shouldFetchTheUserIfChooseParameterExist() {
-        WebRequest mockedWebRequest = mock(WebRequest.class);
-        ModelMap mockedModelMap = mock(ModelMap.class);
-        User mockedUser = mock(User.class);
+    @DisplayName("should fetch user by username when the username is requested")
+    @Test void shouldFetchTheUserIfChooseParameterExist() throws Exception {
+        when(userFacadeMock.find(new Username("jactor"))).thenReturn(Optional.of(mock(User.class)));
 
-        when(mockedWebRequest.getParameter(ParameterConstants.CHOOSE_USER)).thenReturn("user");
-        when(userFacadeMock.find(new Username("user"))).thenReturn(Optional.of(mockedUser));
+        ModelAndView modelAndView = mockMvc.perform(
+                get("/user").param(REQUEST_USER, "jactor")
+        ).andExpect(status().isOk()).andReturn().getModelAndView();
 
-        testUserController.doUser(mockedModelMap, mockedWebRequest);
-
-        verify(mockedModelMap, atLeastOnce()).put(eq(ControllerValues.ATTRIBUTE_USER), any(UserDto.class));
+        assertThat(modelAndView.getModel().get("user")).isNotNull();
     }
 
-    @Test void shouldNotPutTheUserOnTheModelIfNotFound() {
-        WebRequest mockedWebRequest = mock(WebRequest.class);
-        ModelMap mockedModelMap = mock(ModelMap.class);
+    @DisplayName("should fetch user by username, but not find user")
+    @Test void shouldFetchTheUserByUsernameButNotFindUser() throws Exception {
+        when(userFacadeMock.find(any(Username.class))).thenReturn(Optional.empty());
 
-        testUserController.doUser(mockedModelMap, mockedWebRequest);
+        ModelAndView modelAndView = mockMvc.perform(
+                get("/user").param(REQUEST_USER, "someone")
+        ).andExpect(status().isOk()).andReturn().getModelAndView();
 
-        verify(mockedModelMap, never()).put(eq(ControllerValues.ATTRIBUTE_USER), any(UserDto.class));
+        assertThat(modelAndView.getModel().get("unknownUser")).isEqualTo("someone");
     }
 }

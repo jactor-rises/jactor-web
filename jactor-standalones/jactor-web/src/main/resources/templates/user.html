@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <title th:text="#{page.user.html.title}">>users</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link th:href="@{/webjars/bootstrap/4.0.0/css/bootstrap.min.css}" rel="stylesheet" media="screen"/>
+    <link rel="stylesheet" type="text/css" media="screen" href="../static/css/jactor-rises.css"
+          th:href="@{/css/jactor-rises.css}"/>
+</head>
+
+<body>
+<div th:replace="fragments/header :: header">header</div>
+<div class="container" th:with="user=${user}">
+    <table th:if="${user} != null">
+        <tr>
+            <td th:text="#{page.user.username}">Usrname</td>
+            <td th:text="${user.fetchUsername()}">jactor.rises</td>
+        </tr>
+        <tr>
+            <td th:text="#{page.user.name}">Name</td>
+            <td th:text="${user.fetchFullName()}">TE Jacobsen</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>
+                <table th:each="line : ${user.fetchAddress()}">
+                    <tr>
+                        <td th:text="${line}">Address...</td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td th:text="#{page.user.description}">Description</td>
+            <td th:text="${user.getFullDescription()}">I am what I am...</td>
+        </tr>
+    </table>
+    <div th:if="${unknownUser} != null" th:text="#{page.user.unknown}">
+        did not find
+        <div th:text="${unknownUser}">some user</div>
+    </div>
+    <div th:if="${user} == null" th:text="#{page.user.choose}">choose a user</div>
+</div>
+<footer th:insert="fragments/footer :: footer" class="footer">footer</footer>
+</body>
+</html>

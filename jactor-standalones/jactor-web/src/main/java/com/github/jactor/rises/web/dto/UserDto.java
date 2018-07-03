@@ -1,51 +1,97 @@
 package com.github.jactor.rises.web.dto;
 
 
+import com.github.jactor.rises.client.datatype.Name;
 import com.github.jactor.rises.client.domain.Address;
 import com.github.jactor.rises.client.domain.Person;
 import com.github.jactor.rises.client.domain.User;
 
-/** A class for displaying a user on this web application */
+import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
 public class UserDto {
     private final Address address;
     private final Person person;
     private final User user;
+    private String fullDescription;
 
     public UserDto(User user) {
         this.user = user;
-        person = user.getPerson();
-        address = person != null ? person.getAddress() : null;
+        person = Optional.ofNullable(user).map(User::getPerson).orElse(null);
+        address = Optional.ofNullable(person).map(Person::getAddress).orElse(null);
     }
 
-    String getAddressLine1() {
-        return address != null ? address.getAddressLine1() : null;
+    public List<String> fetchAddress() {
+        return Stream.of(fetchAddressLine1(), fetchAddressLine2(), fetchAddressLine3(), fetchZipCode(), fetchCity())
+                .filter(Objects::nonNull)
+                .collect(Collectors.toList());
     }
 
-    String getAddressLine2() {
-        return address != null ? address.getAddressLine2() : null;
+    public String fetchFullName() {
+        String surname = fetchSurname();
+
+        return fetchFirstname()
+                .map(s -> s + " " + surname)
+                .orElse(surname);
     }
 
-    String getCity() {
-        return address != null ? address.getCity() : null;
+    private String fetchAddressLine1() {
+        return Optional.ofNullable(address)
+                .map(Address::getAddressLine1).orElse("");
     }
 
-    Integer getZipCode() {
-        return address != null ? address.getZipCode() : null;
+    private String fetchAddressLine2() {
+        return Optional.ofNullable(address)
+                .map(Address::getAddressLine2).orElse(null);
     }
 
-    String getFirstName() {
-        return person != null && person.getFirstName() != null ? person.getFirstName().asString() : null;
+    private String fetchAddressLine3() {
+        return Optional.ofNullable(address)
+                .map(Address::getAddressLine3).orElse(null);
     }
 
-    String getSurname() {
-        return person != null && person.getSurname() != null ? person.getSurname().asString() : null;
+    private String fetchCity() {
+        return Optional.ofNullable(address)
+                .map(Address::getCity).orElse(null);
     }
 
-    String getUserName() {
+    private String fetchZipCode() {
+        return String.valueOf(
+                Optional.ofNullable(address)
+                        .map(Address::getZipCode)
+                        .orElse(null)
+        );
+    }
+
+    private Optional<String> fetchFirstname() {
+        return Optional.ofNullable(person)
+                .map(Person::getFirstName)
+                .map(Name::asString);
+    }
+
+    private String fetchSurname() {
+        return Optional.ofNullable(person)
+                .map(Person::getSurname)
+                .map(Name::asString).orElse("");
+    }
+
+    public String fetchUsername() {
         return user.getUsername().asString();
     }
 
-    String getDescription() {
-        return person != null ? person.getDescription() : null;
+    public Optional<String> fetchDescription() {
+        return Optional.ofNullable(person)
+                .map(Person::getDescription);
+    }
+
+    public String getFullDescription() {
+        return fullDescription;
+    }
+
+    public void setFullDescription(String fullDescription) {
+        this.fullDescription = fullDescription;
     }
 }

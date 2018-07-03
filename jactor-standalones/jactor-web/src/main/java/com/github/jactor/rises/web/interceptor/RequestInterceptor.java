@@ -1,19 +1,34 @@
 package com.github.jactor.rises.web.interceptor;
 
-import com.github.jactor.rises.web.html.WebParameters;
+import com.github.jactor.rises.web.mvc.CurrentUrlManager;
+import com.github.jactor.rises.web.mvc.LanguageManager;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
+import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- * A {@link HandlerInterceptorAdapter} that will give the action attribute to the the requested view and enable any of its views to be able to send an html form action to the same
- * request. It will also put the requested parameters on the {@link ModelAndView}.
- */
 @Component
-public class RequestInterceptor extends HandlerInterceptorAdapter {
+@PropertySource("classpath:application.properties")
+public class RequestInterceptor implements HandlerInterceptor {
+
+    private static final String CHOSEN_VIEW = "chosenView";
+    static final String CURRENT_URL = "currentUrl";
+
+    private final String contextPath;
+    private final LanguageManager languageManager;
+
+    public @Autowired RequestInterceptor(
+            @Value("${server.servlet.context-path}") String contextPath,
+            LanguageManager languageManager
+    ) {
+        this.contextPath = contextPath;
+        this.languageManager = languageManager;
+    }
 
     @Override public void postHandle(
             HttpServletRequest request,
@@ -21,7 +36,11 @@ public class RequestInterceptor extends HandlerInterceptorAdapter {
             Object handler,
             ModelAndView modelAndView
     ) {
-        modelAndView.addObject(InterceptorValues.ATTRIBUTE_ACTION, request.getRequestURI());
-        modelAndView.addObject(InterceptorValues.ATTRIBUTE_PARAMETERS, new WebParameters(request).fetchWebParameters());
+        if (modelAndView != null) {
+            CurrentUrlManager currentUrlManager = new CurrentUrlManager(contextPath, request);
+            modelAndView.addObject(CHOSEN_VIEW, currentUrlManager.fetchChosenView());
+            modelAndView.addObject(CURRENT_URL, currentUrlManager.fetch());
+            languageManager.putAllLanguageAttributes(modelAndView.getModel());
+        }
     }
 }

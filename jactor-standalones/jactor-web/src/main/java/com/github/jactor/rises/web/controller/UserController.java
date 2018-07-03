@@ -1,43 +1,55 @@
 package com.github.jactor.rises.web.controller;
 
 import com.github.jactor.rises.client.datatype.Username;
+import com.github.jactor.rises.client.domain.User;
 import com.github.jactor.rises.client.facade.UserFacade;
 import com.github.jactor.rises.web.dto.UserDto;
-import com.github.jactor.rises.web.dto.UsernameDto;
+import com.github.jactor.rises.web.i18n.MyMessages;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.context.request.WebRequest;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
-import static com.github.jactor.rises.web.controller.ControllerValues.ATTRIBUTE_USER;
-import static com.github.jactor.rises.web.controller.ControllerValues.VIEW_USER;
+import java.util.Map;
+import java.util.Optional;
 
 @Controller
 public class UserController {
 
+    private final MyMessages myMessages;
     private final UserFacade userFacade;
 
-    @Autowired
-    public UserController(UserFacade userFacade) {
+    public @Autowired UserController(UserFacade userFacade, MyMessages myMessages) {
+        this.myMessages = myMessages;
         this.userFacade = userFacade;
     }
 
-    @RequestMapping(value = VIEW_USER, method = {RequestMethod.GET, RequestMethod.POST})
-    public void doUser(ModelMap modelMap, WebRequest webRequest) {
-        resolveUser(modelMap, webRequest);
-    }
+    @RequestMapping(value = "/user", method = RequestMethod.GET)
+    public ModelAndView get(@RequestParam(name = "choose", required = false) String username) {
+        ModelAndView modelAndView = new ModelAndView("user");
 
-    private void resolveUser(ModelMap modelMap, WebRequest webRequest) {
-        UsernameDto usernameDto = new UsernameDto(webRequest);
+        if (username != null) {
+            Optional<User> user = userFacade.find(new Username(username));
+            Map<String, Object> modelMap = modelAndView.getModel();
 
-        if (!usernameDto.hasName()) {
-            return;
+            if (user.isPresent()) {
+                modelMap.put("user", initUserDto(user.get()));
+            } else {
+                modelMap.put("unknownUser", username);
+            }
         }
 
-        Username username = usernameDto.getUsername();
-        userFacade.find(username)
-                .ifPresent(user -> modelMap.put(ATTRIBUTE_USER, new UserDto(user)));
+        return modelAndView;
+    }
+
+    private UserDto initUserDto(User user) {
+        UserDto userDto = new UserDto(user);
+        userDto.fetchDescription().ifPresent(
+                s -> userDto.setFullDescription(myMessages.fetchMessage(s))
+        );
+
+        return userDto;
     }
 }

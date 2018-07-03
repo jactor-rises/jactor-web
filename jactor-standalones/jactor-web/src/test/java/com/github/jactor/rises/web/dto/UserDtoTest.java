@@ -1,64 +1,83 @@
 package com.github.jactor.rises.web.dto;
 
-import com.github.jactor.rises.client.datatype.Name;
-import com.github.jactor.rises.client.datatype.Username;
-import com.github.jactor.rises.client.domain.Address;
-import com.github.jactor.rises.client.domain.Person;
-import com.github.jactor.rises.client.domain.User;
-import org.junit.jupiter.api.BeforeEach;
+import com.github.jactor.rises.test.extension.validate.SuppressValidInstanceExtension;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
+import org.junit.jupiter.api.extension.ExtendWith;
 
+import java.util.List;
+import java.util.Optional;
+
+import static com.github.jactor.rises.model.domain.address.AddressDomain.anAddress;
+import static com.github.jactor.rises.model.domain.person.PersonDomain.aPerson;
+import static com.github.jactor.rises.model.domain.user.UserDomain.aUser;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.when;
+import static org.junit.jupiter.api.Assertions.assertAll;
 
+@ExtendWith(SuppressValidInstanceExtension.class)
+@DisplayName("A UserDto")
 class UserDtoTest {
-    @Mock private Address mockedAddress;
-    @Mock private User mockedUser;
-    @Mock private Person mockedPerson;
 
-    @BeforeEach
-    void initMocking() {
-        MockitoAnnotations.initMocks(this);
+    @DisplayName("should fetch the address of the user as a list of strings")
+    @Test void shouldFetchTheAddress() {
+        UserDto testUserDto = new UserDto(
+                aUser().with(aPerson().with(anAddress()
+                        .withAddressLine1("address line 1")
+                        .withAddressLine2("address line 2")
+                        .withAddressLine3("address line 3")
+                        .withZipCode(1234)
+                        .withCity("somewhere")
+                )).build()
+        );
+
+        List<String> address = testUserDto.fetchAddress();
+
+        assertThat(address).containsExactly(
+                "address line 1",
+                "address line 2",
+                "address line 3",
+                "1234",
+                "somewhere"
+        );
     }
 
-    @Test void willGetTheAddress() {
-        mockUserInstance();
-        UserDto testUserDto = new UserDto(mockedUser);
+    @DisplayName("should not fetch parts of address being null")
+    @Test void shouldGetTheAddress() {
+        UserDto testUserDto = new UserDto(
+                aUser().with(aPerson().with(anAddress()
+                        .withAddressLine1("address line 1")
+                        .withZipCode(1234)
+                )).build()
+        );
 
-        assertThat(testUserDto.getAddressLine1()).isEqualTo("address line 1");
-        assertThat(testUserDto.getAddressLine2()).isEqualTo("address line 2");
-        assertThat(testUserDto.getCity()).isEqualTo("somewhere");
-        assertThat(testUserDto.getZipCode()).isEqualTo(1234);
+        List<String> address = testUserDto.fetchAddress();
+
+        assertThat(address).containsExactly(
+                "address line 1",
+                "1234"
+        );
     }
 
-    @Test void willGetTheUser() {
-        mockUserInstance();
-        UserDto testUserDto = new UserDto(mockedUser);
+    @DisplayName("should fetch the username of the user")
+    @Test void shouldFetchTheUsername() {
+        UserDto testUserDto = new UserDto(aUser().withUsername("user").build());
 
-        assertThat(testUserDto.getUserName()).isEqualTo("user");
+        assertThat(testUserDto.fetchUsername()).isEqualTo("user");
     }
 
-    @Test void willGetThePersonForTheUser() {
-        mockUserInstance();
-        UserDto testUserDto = new UserDto(mockedUser);
+    @DisplayName("should fetch the person behind the user")
+    @Test void shouldFetchThePersonBehindTheUser() {
+        UserDto testUserDto = new UserDto(
+                aUser().with(aPerson()
+                        .withFirstName("John")
+                        .withSurname("Smith")
+                        .withDescription("description")
+                ).build()
+        );
 
-        assertThat(testUserDto.getFirstName()).isEqualTo("John");
-        assertThat(testUserDto.getSurname()).isEqualTo("Smith");
-        assertThat(testUserDto.getDescription()).isEqualTo("description");
-    }
-
-    private void mockUserInstance() {
-        when(mockedUser.getUsername()).thenReturn(new Username("user"));
-        when(mockedUser.getPerson()).thenReturn(mockedPerson);
-        when(mockedPerson.getAddress()).thenReturn(mockedAddress);
-        when(mockedPerson.getDescription()).thenReturn("description");
-        when(mockedPerson.getFirstName()).thenReturn(new Name("John"));
-        when(mockedPerson.getSurname()).thenReturn(new Name("Smith"));
-        when(mockedAddress.getAddressLine1()).thenReturn("address line 1");
-        when(mockedAddress.getAddressLine2()).thenReturn("address line 2");
-        when(mockedAddress.getCity()).thenReturn("somewhere");
-        when(mockedAddress.getZipCode()).thenReturn(1234);
+        assertAll(
+                () -> assertThat(testUserDto.fetchFullName()).isEqualTo("John Smith"),
+                () -> assertThat(testUserDto.fetchDescription()).isEqualTo(Optional.of("description"))
+        );
     }
 }
