@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.Locale;
 import java.util.Map;
 
-import static com.github.jactor.rises.web.mvc.CurrentUrlManager.CURRENT_URL;
+import static com.github.jactor.rises.web.interceptor.RequestInterceptor.CURRENT_URL;
 import static com.github.jactor.rises.web.mvc.LanguageManager.IS_ENGLISH;
 import static com.github.jactor.rises.web.mvc.LanguageManager.IS_NORWEGIAN;
 import static com.github.jactor.rises.web.mvc.LanguageManager.IS_THAI;

@@ -4,8 +4,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.MockitoAnnotations;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -24,20 +22,20 @@ import static org.mockito.Mockito.when;
 @PropertySource("classpath:application.properties")
 class CurrentUrlManagerTest {
 
-    private @Autowired CurrentUrlManager currentUrlManager;
+    private CurrentUrlManager currentUrlManager;
     private @MockBean HttpServletRequest httpServletRequestMock;
     private @Value("${server.servlet.context-path}") String contextPath;
 
-    @BeforeEach void initMocking() {
-        MockitoAnnotations.initMocks(this);
+    @BeforeEach void initCurrentUrlManager() {
+        currentUrlManager = new CurrentUrlManager(contextPath, httpServletRequestMock);
     }
 
-    @DisplayName("should init currentUrl and attach it to the model")
+    @DisplayName("should fetch currentUrl and attach it to the model")
     @Test void shouldInitCurrentUrl() {
         when(httpServletRequestMock.getRequestURI()).thenReturn("/user");
         when(httpServletRequestMock.getQueryString()).thenReturn("choose=jactor");
 
-        assertThat(currentUrlManager.init(httpServletRequestMock)).isEqualTo("/user?choose=jactor");
+        assertThat(currentUrlManager.fetch()).isEqualTo("/user?choose=jactor");
     }
 
     @DisplayName("should not add query string to currentUrl if query string is blank")
@@ -45,7 +43,7 @@ class CurrentUrlManagerTest {
         when(httpServletRequestMock.getRequestURI()).thenReturn("/user");
         when(httpServletRequestMock.getQueryString()).thenReturn("");
 
-        assertThat(currentUrlManager.init(httpServletRequestMock)).isEqualTo("/user");
+        assertThat(currentUrlManager.fetch()).isEqualTo("/user");
     }
 
     @DisplayName("should not add parameter called lang")
@@ -53,12 +51,12 @@ class CurrentUrlManagerTest {
         when(httpServletRequestMock.getRequestURI()).thenReturn("/home");
         when(httpServletRequestMock.getQueryString()).thenReturn("lang=en");
 
-        String languageParam = currentUrlManager.init(httpServletRequestMock);
+        String languageParam = currentUrlManager.fetch();
 
         when(httpServletRequestMock.getRequestURI()).thenReturn("/user");
         when(httpServletRequestMock.getQueryString()).thenReturn("lang=no&choose=tip");
 
-        String langAndOtherParam = currentUrlManager.init(httpServletRequestMock);
+        String langAndOtherParam = currentUrlManager.fetch();
 
         assertAll(
                 () -> assertThat(languageParam).as("only language param").isEqualTo("/home"),
@@ -70,6 +68,13 @@ class CurrentUrlManagerTest {
     @Test void shouldNotAddContextPath() {
         when(httpServletRequestMock.getRequestURI()).thenReturn(contextPath + "/home");
 
-        assertThat(currentUrlManager.init(httpServletRequestMock)).isEqualTo("/home");
+        assertThat(currentUrlManager.fetch()).isEqualTo("/home");
+    }
+
+    @DisplayName("should add centext-path to the view name")
+    @Test void shouldAddViewNameToTheModel() {
+        when(httpServletRequestMock.getRequestURI()).thenReturn(contextPath + "/someView");
+
+        assertThat(currentUrlManager.fetchChosenView()).isEqualTo("someView");
     }
 }

@@ -54,9 +54,21 @@
                 </td>
                 <td>
                     <div class="alignLeft">
-                        <p><a href="home" th:text="#{page.home.title}">home sweet home</a></p>
-                        <p><a href="user" th:text="#{page.user.title}">user pages</a></p>
-                        <p><a href="about" th:text="#{page.about.title}">home sweet home</a></p>
+                        <p>
+                            <a th:if="${chosenView!='home'} AND ${chosenView!=''}" href="home"
+                               th:text="#{page.home.title}">home sweet home</a>
+                            <span th:if="${chosenView=='home'} OR ${chosenView==''}" th:text="#{page.home.title}">
+                                home sweet home
+                            </span>
+                        </p>
+                        <p>
+                            <a th:if="${chosenView!='user'}" href="user" th:text="#{page.user.title}">users page</a>
+                            <span th:if="${chosenView=='user'}" th:text="#{page.user.title}">users page</span>
+                        </p>
+                        <p>
+                            <a th:if="${chosenView!='about'}" href="about" th:text="#{page.about.title}">about page</a>
+                            <span th:if="${chosenView=='about'}" th:text="#{page.about.title}">about page</span>
+                        </p>
                     </div>
                 </td>
             </tr>

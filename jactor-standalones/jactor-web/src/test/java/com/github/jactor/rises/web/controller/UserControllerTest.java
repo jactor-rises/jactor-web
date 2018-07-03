@@ -42,7 +42,6 @@ class UserControllerTest {
 
     private MockMvc mockMvc;
     private @Autowired MyMessages myMessages;
-    private @Autowired CurrentUrlManager currentUrlManager;
     private @MockBean UserFacade userFacadeMock;
     private @Value("${spring.mvc.view.prefix}") String prefix;
     private @Value("${spring.mvc.view.suffix}") String suffix;

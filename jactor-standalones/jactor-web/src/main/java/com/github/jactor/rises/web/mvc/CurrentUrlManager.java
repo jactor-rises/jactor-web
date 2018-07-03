@@ -1,9 +1,6 @@
 package com.github.jactor.rises.web.mvc;
 
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.PropertySource;
-import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -11,20 +8,18 @@ import java.util.stream.Collectors;
 
 import static java.util.Arrays.stream;
 
-@Component
-@PropertySource("classpath:application.properties")
 public class CurrentUrlManager {
 
-    public static final String CURRENT_URL = "currentUrl";
+    private final HttpServletRequest httpServletRequest;
     private final String contextPath;
 
-    public CurrentUrlManager(@Value("${server.servlet.context-path}") String contextPath) {
+    public CurrentUrlManager(String contextPath, HttpServletRequest httpServletRequest) {
         this.contextPath = contextPath;
+        this.httpServletRequest = httpServletRequest;
     }
 
-    public String init(HttpServletRequest httpServletRequest) {
-        String requestURI = httpServletRequest.getRequestURI();
-        requestURI = requestURI.replaceAll(contextPath, "");
+    public String fetch() {
+        String requestURI = fetchWithoutContextPath();
         String queryString = httpServletRequest.getQueryString();
 
         if (StringUtils.isBlank(queryString)) {
@@ -38,5 +33,17 @@ public class CurrentUrlManager {
         String delimeter = parametersWithoutLanguage.isEmpty() ? "" : "?";
 
         return requestURI + delimeter + String.join("&", parametersWithoutLanguage);
+    }
+
+    public String fetchChosenView() {
+        String requestURI = fetchWithoutContextPath();
+        return requestURI.charAt(0) == '/' ? requestURI.substring(1) : requestURI;
+    }
+
+    private String fetchWithoutContextPath() {
+        String requestURI = httpServletRequest.getRequestURI();
+        requestURI = requestURI.replaceAll(contextPath, "");
+
+        return requestURI;
     }
 }
