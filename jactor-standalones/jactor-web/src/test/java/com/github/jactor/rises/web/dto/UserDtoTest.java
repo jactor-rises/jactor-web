@@ -77,7 +77,7 @@ class UserDtoTest {
 
         assertAll(
                 () -> assertThat(testUserDto.fetchFullName()).isEqualTo("John Smith"),
-                () -> assertThat(testUserDto.fetchDescription()).isEqualTo(Optional.of("description"))
+                () -> assertThat(testUserDto.fetchDescriptionCode()).isEqualTo(Optional.of("description"))
         );
     }
 }

@@ -1,12 +1,11 @@
 package com.github.jactor.rises.web.menu;
 
 import com.github.jactor.rises.client.datatype.Name;
+import com.github.jactor.rises.model.facade.JactorFacade;
 import com.github.jactor.rises.model.facade.MenuFacade;
 import com.github.jactor.rises.model.facade.menu.MenuItem;
-import com.github.jactor.rises.model.facade.menu.MenuItemTarget;
-import com.github.jactor.rises.model.facade.menu.MenuTarget;
-import com.github.jactor.rises.model.facade.menu.MenuTargetRequest;
 import com.github.jactor.rises.web.JactorWeb;
+import org.assertj.core.api.SoftAssertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -16,8 +15,8 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.List;
 
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
+import static org.assertj.core.api.SoftAssertions.assertSoftly;
 
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = JactorWeb.class)
@@ -27,30 +26,33 @@ class MenuFacadeIntegrationTest {
 
     @DisplayName("should fail when fetching items for an unknown menu")
     @Test void shouldFailWhenFetchingItemsForAnUnknownMenu() {
-        MenuTarget menuTarget = new MenuTarget(new MenuItemTarget("some target"), new Name("unknown"));
-
         assertThatIllegalArgumentException()
-                .isThrownBy(() -> testMenuFacade.fetchMenuItem(new MenuTargetRequest(menuTarget)));
+                .isThrownBy(() -> testMenuFacade.fetchMenuItems(new Name("unknown")));
     }
 
-    @DisplayName("should fetch menu item with chosen child")
-    @Test void whenFindingMenuItemsAndTheNameIsKnownTheListOfMenuItemsWillBeReturned() {
-        MenuTarget menuTarget = new MenuTarget(new MenuItemTarget("user?choose=jactor"), new Name("main"));
-        MenuTargetRequest menuTargetRequest = new MenuTargetRequest(menuTarget);
+    @DisplayName("should fetch user menu items and reveal choosen child")
+    @Test void shouldFetchMenuItemsForMenuAndRevealChoosenChild() {
+        String target = "user?choose=jactor";
+        Name targetName = new Name("jactor");
 
-        List<MenuItem> menuItems = testMenuFacade.fetchMenuItem(menuTargetRequest);
+        List<MenuItem> menuItems = testMenuFacade.fetchMenuItems(JactorFacade.MENU_USERS);
 
-        for (MenuItem menuItem : menuItems) {
-            Name itemName = menuItem.getItemName();
-            Name chosenName = new Name("jactor");
-
-            if (new Name("menu.main.home").equals(itemName)) {
-                assertThat(menuItem.isChildChosen()).as("home.children").isEqualTo(true);
-            } else if (chosenName.equals(itemName)) {
-                assertThat(menuItem.isChosen()).as("jactor").isEqualTo(true);
-            } else {
-                assertThat(menuItem.isChildChosen()).as("other item names").isEqualTo(false);
-            }
-        }
+        assertSoftly(
+                softly -> {
+                    for (MenuItem menuItem : menuItems) {
+                        if (!menuItem.getChildren().isEmpty()) {
+                            if (menuItem.getItemName().asString().equals("menu.users.default")) {
+                                softly.assertThat(menuItem.isChildChosen(target)).as("'menu.users.default' with chosen child").isEqualTo(true);
+                            } else {
+                                softly.assertThat(menuItem.isChildChosen(target)).as("%s with chosen child", menuItem.getItemName().asString()).isEqualTo(false);
+                            }
+                        } else if (menuItem.isChosen(target)) {
+                            softly.assertThat(menuItem.getItemName()).as("%s targetName", menuItem.getItemName().asString()).isEqualTo(targetName);
+                        } else {
+                            softly.assertThat(menuItem.isChildChosen(target)).as("other item names").isEqualTo(false);
+                        }
+                    }
+                }
+        );
     }
 }
