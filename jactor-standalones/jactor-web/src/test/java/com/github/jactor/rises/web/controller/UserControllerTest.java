@@ -3,9 +3,11 @@ package com.github.jactor.rises.web.controller;
 import com.github.jactor.rises.client.datatype.Username;
 import com.github.jactor.rises.client.domain.User;
 import com.github.jactor.rises.client.facade.UserFacade;
+import com.github.jactor.rises.model.facade.JactorFacade;
+import com.github.jactor.rises.model.facade.MenuFacade;
+import com.github.jactor.rises.model.facade.menu.MenuItem;
 import com.github.jactor.rises.web.JactorWeb;
 import com.github.jactor.rises.web.i18n.MyMessages;
-import com.github.jactor.rises.web.mvc.CurrentUrlManager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -20,8 +22,12 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
+import java.util.Collection;
+import java.util.Map;
 import java.util.Optional;
 
+import static com.github.jactor.rises.model.facade.menu.MenuItem.aMenuItem;
+import static java.util.Collections.singletonList;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
@@ -39,10 +45,12 @@ import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standal
 class UserControllerTest {
 
     private static final String REQUEST_USER = "choose";
+    private static final String USER_MENU = "userMenu";
 
     private MockMvc mockMvc;
     private @Autowired MyMessages myMessages;
     private @MockBean UserFacade userFacadeMock;
+    private @MockBean MenuFacade menuFacadeMock;
     private @Value("${spring.mvc.view.prefix}") String prefix;
     private @Value("${spring.mvc.view.suffix}") String suffix;
 
@@ -51,7 +59,7 @@ class UserControllerTest {
         internalResourceViewResolver.setPrefix(prefix);
         internalResourceViewResolver.setSuffix(suffix);
 
-        mockMvc = standaloneSetup(new UserController(userFacadeMock, myMessages))
+        mockMvc = standaloneSetup(new UserController(userFacadeMock, myMessages, menuFacadeMock))
                 .setViewResolvers(internalResourceViewResolver)
                 .build();
     }
@@ -92,5 +100,17 @@ class UserControllerTest {
         ).andExpect(status().isOk()).andReturn().getModelAndView();
 
         assertThat(modelAndView.getModel().get("unknownUser")).isEqualTo("someone");
+    }
+
+    @DisplayName("should add the users menu to the model")
+    @Test void shouldAddUserMenuToTheModel() throws Exception {
+        when(menuFacadeMock.fetchMenuItems(JactorFacade.MENU_USERS)).thenReturn(singletonList(aMenuItem().build()));
+
+        Map<String, Object> model = mockMvc.perform(
+                get("/user").param(REQUEST_USER, "jactor")
+        ).andExpect(status().isOk()).andReturn().getModelAndView().getModel();
+
+        //noinspection unchecked
+        assertThat((Collection<MenuItem>) model.get("usersMenu")).isNotEmpty();
     }
 }

@@ -82,7 +82,7 @@ public class UserDto {
         return user.getUsername().asString();
     }
 
-    public Optional<String> fetchDescription() {
+    public Optional<String> fetchDescriptionCode() {
         return Optional.ofNullable(person)
                 .map(Person::getDescription);
     }
