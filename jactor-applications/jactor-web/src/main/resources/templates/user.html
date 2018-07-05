@@ -17,11 +17,7 @@
         <table th:each="menuItem : ${usersMenu}">
           <tr>
             <td>
-              <div>
-                <a th:href="${menuItem.target}" th:title="#{${menuItem.description}}">
-                  <span th:text="#{${menuItem.itemName.asString()}}">a menu item</span>
-                </a>
-              </div>
+              <div th:text="#{${menuItem.itemName.asString()}}">a menu item</div>
               <div th:if="${menuItem.hasChildren()}">
                 <ul>
                   <li th:each="child : ${menuItem.fetchChildren()}">

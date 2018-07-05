@@ -10,10 +10,10 @@
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
-    <groupId>com.github.jactor-rises.jactor-standalones</groupId>
+    <groupId>com.github.jactor-rises.jactor-applications</groupId>
     <artifactId>jactor-web</artifactId>
 
-    <name>jactor-standalones::jactor-web</name>
+    <name>jactor-applications::jactor-web</name>
     <description>A web module for jactor-rises</description>
 
     <version>1.0-SNAPSHOT</version>

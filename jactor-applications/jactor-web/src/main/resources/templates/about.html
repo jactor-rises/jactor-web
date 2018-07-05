@@ -7,8 +7,8 @@
   <link rel="stylesheet" type="text/css" media="screen" href="../static/css/jactor-rises.css"
         th:href="@{/css/jactor-rises.css}"/>
 </head>
-
 <body>
+
 <div th:replace="fragments/header :: header">header</div>
 <div class="container">
   <table>
@@ -22,7 +22,7 @@
     </tr>
   </table>
 </div>
-<footer th:insert="fragments/footer :: footer" class="footer">footer</footer>
-</body>
+<div th:replace="fragments/footer :: footer" class="footer">footer</div>
 
+</body>
 </html>
