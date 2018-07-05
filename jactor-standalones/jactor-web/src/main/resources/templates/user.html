@@ -14,27 +14,26 @@
   <table>
     <tr>
       <td>
-        <div class="col">
-          <span th:text="#{page.user.title}">Users menu</span>
-          <table th:each="menuItem : ${usersMenu}">
-            <tr>
-              <td>
-                <div>
-                  <a th:href="${menuItem.target}" th:title="#{${menuItem.description}}">
-                    <span th:text="#{${menuItem.itemName.asString()}}">a menu item</span>
-                  </a>
-                </div>
-                <ul th:each="child : ${menuItem.children}">
-                  <li>
+        <table th:each="menuItem : ${usersMenu}">
+          <tr>
+            <td>
+              <div>
+                <a th:href="${menuItem.target}" th:title="#{${menuItem.description}}">
+                  <span th:text="#{${menuItem.itemName.asString()}}">a menu item</span>
+                </a>
+              </div>
+              <div th:if="${menuItem.hasChildren()}">
+                <ul>
+                  <li th:each="child : ${menuItem.fetchChildren()}">
                     <a th:href="${child.target}" th:title="#{page.user.menu.choose}">
                       <span th:text="${child.itemName.asString()}">a child menu item</span>
                     </a>
                   </li>
                 </ul>
-              </td>
-            </tr>
-          </table>
-        </div>
+              </div>
+            </td>
+          </tr>
+        </table>
       </td>
       <td>
         <div class="container" th:with="user=${user}">
@@ -59,11 +58,9 @@
             </tr>
           </table>
           <div th:if="${unknownUser} != null" th:text="#{page.user.unknown}">
-            did not find
             <div th:text="${unknownUser}">some user</div>
           </div>
-          <div th:if="${user} == null" th:text="#{page.user.choose}">choose a user
-          </div>
+          <div th:if="${user} == null" th:text="#{page.user.choose}">choose a user</div>
         </div>
       </td>
     </tr>

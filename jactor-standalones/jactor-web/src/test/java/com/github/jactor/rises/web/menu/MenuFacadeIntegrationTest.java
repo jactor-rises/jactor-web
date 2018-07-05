@@ -37,20 +37,20 @@ class MenuFacadeIntegrationTest {
         Name name = new Name("jactor");
 
         List<MenuItem> menuItems = testMenuFacade.fetchMenuItems(JactorFacade.MENU_USERS).stream()
-                .flatMap(menuItem -> menuItem.getChildren().stream())
+                .flatMap(menuItem -> menuItem.fetchChildren().stream())
                 .collect(toList());
 
         assertSoftly(
                 softly -> {
                     for (MenuItem menuItem : menuItems) {
-                        if (!menuItem.getChildren().isEmpty() && menuItem.getItemName().asString().equals("menu.users.default")) {
-                            softly.assertThat(menuItem.isChildChosen(target)).as("'menu.users.default' with chosen child")
+                        if (menuItem.hasChildren() && menuItem.isNamed("menu.users.default")) {
+                            softly.assertThat(menuItem.isChildChosen(target)).as("'menu.users.default' should have chosen child")
                                     .isEqualTo(true);
-                        } else if (!menuItem.getChildren().isEmpty()) {
-                            softly.assertThat(menuItem.isChildChosen(target)).as("%s with chosen child", menuItem.getItemName().asString())
+                        } else if (menuItem.hasChildren()) {
+                            softly.assertThat(menuItem.isChildChosen(target)).as("%s should not have chosen child", menuItem.getItemName())
                                     .isEqualTo(false);
                         } else {
-                            softly.assertThat(menuItem.isChosen(target)).as("expected %s to be chosen, not %s", name, menuItem.getItemName().asString())
+                            softly.assertThat(menuItem.isChosen(target)).as("expected %s to be chosen, not %s", name, menuItem.getItemName())
                                     .isEqualTo(name.equals(menuItem.getItemName()));
                         }
                     }
