@@ -7,7 +7,6 @@ import com.github.jactor.rises.model.facade.JactorFacade;
 import com.github.jactor.rises.model.facade.MenuFacade;
 import com.github.jactor.rises.model.facade.menu.MenuItem;
 import com.github.jactor.rises.web.dto.UserDto;
-import com.github.jactor.rises.web.i18n.MyMessages;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,12 +24,10 @@ import static java.util.Collections.singletonList;
 @Controller
 public class UserController {
 
-    private final MyMessages myMessages;
     private final UserFacade userFacade;
     private final MenuFacade menuFacade;
 
-    public @Autowired UserController(UserFacade userFacade, MyMessages myMessages, MenuFacade menuFacade) {
-        this.myMessages = myMessages;
+    public @Autowired UserController(UserFacade userFacade, MenuFacade menuFacade) {
         this.userFacade = userFacade;
         this.menuFacade = menuFacade;
     }
@@ -54,19 +51,10 @@ public class UserController {
         Map<String, Object> modelMap = modelAndView.getModel();
 
         if (user.isPresent()) {
-            modelMap.put("user", initUserDto(user.get()));
+            modelMap.put("user", new UserDto(user.get()));
         } else {
             modelMap.put("unknownUser", username);
         }
-    }
-
-    private UserDto initUserDto(User user) {
-        UserDto userDto = new UserDto(user);
-        userDto.fetchDescriptionCode().ifPresent(
-                s -> userDto.setFullDescription(myMessages.fetchMessage(s))
-        );
-
-        return userDto;
     }
 
     private void populateUserMenu(ModelAndView modelAndView) {

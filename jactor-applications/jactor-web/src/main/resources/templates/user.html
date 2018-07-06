@@ -19,9 +19,9 @@
             <td>
               <div th:text="#{${menuItem.itemName.asString()}}">a menu item</div>
               <div th:if="${menuItem.hasChildren()}">
-                <ul>
+                <ul th:with="choose=#{page.user.menu.choose}">
                   <li th:each="child : ${menuItem.fetchChildren()}">
-                    <a th:href="${child.target}" th:title="#{page.user.menu.choose}">
+                    <a th:href="${child.target}" th:title="${choose}">
                       <span th:text="${child.itemName.asString()}">a child menu item</span>
                     </a>
                   </li>
