@@ -19,6 +19,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import static com.github.jactor.rises.model.facade.menu.MenuItem.aMenuItem;
+import static java.util.Collections.singletonList;
+
 @Controller
 public class UserController {
 
@@ -41,6 +44,7 @@ public class UserController {
         }
 
         populateUserMenu(modelAndView);
+        populateDefaultUsers(modelAndView);
 
         return modelAndView;
     }
@@ -66,7 +70,18 @@ public class UserController {
     }
 
     private void populateUserMenu(ModelAndView modelAndView) {
+        List<String> usernames = userFacade.findAllUsernames();
+        modelAndView.addObject("usersMenu", singletonList(
+                aMenuItem()
+                        .withName("menu.users.choose")
+                        .addAsChildren(usernames)
+                        .build()
+                )
+        );
+    }
+
+    private void populateDefaultUsers(ModelAndView modelAndView) {
         List<MenuItem> items = menuFacade.fetchMenuItems(JactorFacade.MENU_USERS);
-        modelAndView.addObject("usersMenu", items);
+        modelAndView.addObject("defaultUsers", items);
     }
 }
