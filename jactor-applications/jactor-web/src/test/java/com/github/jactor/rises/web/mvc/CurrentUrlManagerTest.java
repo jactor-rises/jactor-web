@@ -18,7 +18,7 @@ import static org.mockito.Mockito.when;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
-@DisplayName("An UrlWithoutLanguage")
+@DisplayName("A CurrentUrlManager")
 @PropertySource("classpath:application.properties")
 class CurrentUrlManagerTest {
 
