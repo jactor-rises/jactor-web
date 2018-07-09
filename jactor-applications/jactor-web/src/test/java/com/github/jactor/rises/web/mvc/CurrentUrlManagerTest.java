@@ -71,8 +71,8 @@ class CurrentUrlManagerTest {
         assertThat(currentUrlManager.fetch()).isEqualTo("/home");
     }
 
-    @DisplayName("should add centext-path to the view name")
-    @Test void shouldAddViewNameToTheModel() {
+    @DisplayName("should not add centext-path to the view name")
+    @Test void shouldNotAddViewNameToTheModel() {
         when(httpServletRequestMock.getRequestURI()).thenReturn(contextPath + "/someView");
 
         assertThat(currentUrlManager.fetchChosenView()).isEqualTo("someView");
