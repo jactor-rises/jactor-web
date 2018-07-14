@@ -1,10 +1,10 @@
-package com.github.jactor.rises.web.menu;
+package com.gitlab.jactor.rises.web.menu;
 
-import com.github.jactor.rises.client.datatype.Name;
-import com.github.jactor.rises.model.facade.JactorFacade;
-import com.github.jactor.rises.model.facade.MenuFacade;
-import com.github.jactor.rises.model.facade.menu.MenuItem;
-import com.github.jactor.rises.web.JactorWeb;
+import com.gitlab.jactor.rises.client.datatype.Name;
+import com.gitlab.jactor.rises.model.facade.JactorFacade;
+import com.gitlab.jactor.rises.model.facade.MenuFacade;
+import com.gitlab.jactor.rises.model.facade.menu.MenuItem;
+import com.gitlab.jactor.rises.web.JactorWeb;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

@@ -1,8 +1,8 @@
-package com.github.jactor.rises.web;
+package com.gitlab.jactor.rises.web;
 
-import com.github.jactor.rises.web.controller.AboutController;
-import com.github.jactor.rises.web.controller.HomeController;
-import com.github.jactor.rises.web.controller.UserController;
+import com.gitlab.jactor.rises.web.controller.AboutController;
+import com.gitlab.jactor.rises.web.controller.HomeController;
+import com.gitlab.jactor.rises.web.controller.UserController;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.boot.test.context.SpringBootTest;

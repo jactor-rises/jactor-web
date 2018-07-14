@@ -1,12 +1,12 @@
-package com.github.jactor.rises.web.controller;
+package com.gitlab.jactor.rises.web.controller;
 
-import com.github.jactor.rises.client.datatype.Username;
-import com.github.jactor.rises.client.domain.User;
-import com.github.jactor.rises.client.facade.UserFacade;
-import com.github.jactor.rises.model.facade.JactorFacade;
-import com.github.jactor.rises.model.facade.MenuFacade;
-import com.github.jactor.rises.model.facade.menu.MenuItem;
-import com.github.jactor.rises.web.dto.UserDto;
+import com.gitlab.jactor.rises.client.datatype.Username;
+import com.gitlab.jactor.rises.client.domain.User;
+import com.gitlab.jactor.rises.client.facade.UserFacade;
+import com.gitlab.jactor.rises.model.facade.JactorFacade;
+import com.gitlab.jactor.rises.model.facade.MenuFacade;
+import com.gitlab.jactor.rises.model.facade.menu.MenuItem;
+import com.gitlab.jactor.rises.web.dto.UserDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-import static com.github.jactor.rises.model.facade.menu.MenuItem.aMenuItem;
+import static com.gitlab.jactor.rises.model.facade.menu.MenuItem.aMenuItem;
 import static java.util.Collections.singletonList;
 
 @Controller

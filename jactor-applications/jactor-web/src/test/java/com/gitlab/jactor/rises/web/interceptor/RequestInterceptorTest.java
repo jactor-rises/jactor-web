@@ -1,4 +1,4 @@
-package com.github.jactor.rises.web.interceptor;
+package com.gitlab.jactor.rises.web.interceptor;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -14,11 +14,11 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.Locale;
 import java.util.Map;
 
-import static com.github.jactor.rises.web.interceptor.RequestInterceptor.CURRENT_URL;
-import static com.github.jactor.rises.web.mvc.LanguageManager.IS_ENGLISH;
-import static com.github.jactor.rises.web.mvc.LanguageManager.IS_NORWEGIAN;
-import static com.github.jactor.rises.web.mvc.LanguageManager.IS_THAI;
-import static com.github.jactor.rises.web.mvc.LanguageManager.LANG;
+import static com.gitlab.jactor.rises.web.interceptor.RequestInterceptor.CURRENT_URL;
+import static com.gitlab.jactor.rises.web.mvc.LanguageManager.IS_ENGLISH;
+import static com.gitlab.jactor.rises.web.mvc.LanguageManager.IS_NORWEGIAN;
+import static com.gitlab.jactor.rises.web.mvc.LanguageManager.IS_THAI;
+import static com.gitlab.jactor.rises.web.mvc.LanguageManager.LANG;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.mockito.Mockito.when;

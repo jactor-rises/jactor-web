@@ -1,4 +1,4 @@
-package com.github.jactor.rises.web.dto;
+package com.gitlab.jactor.rises.web.dto;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;

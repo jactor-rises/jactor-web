@@ -1,10 +1,10 @@
-package com.github.jactor.rises.web.dto;
+package com.gitlab.jactor.rises.web.dto;
 
 
-import com.github.jactor.rises.client.datatype.Name;
-import com.github.jactor.rises.client.domain.Address;
-import com.github.jactor.rises.client.domain.Person;
-import com.github.jactor.rises.client.domain.User;
+import com.gitlab.jactor.rises.client.datatype.Name;
+import com.gitlab.jactor.rises.client.domain.Address;
+import com.gitlab.jactor.rises.client.domain.Person;
+import com.gitlab.jactor.rises.client.domain.User;
 
 import java.util.List;
 import java.util.Objects;

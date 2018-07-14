@@ -1,13 +1,13 @@
-package com.github.jactor.rises.web.controller;
+package com.gitlab.jactor.rises.web.controller;
 
-import com.github.jactor.rises.client.datatype.Username;
-import com.github.jactor.rises.client.domain.User;
-import com.github.jactor.rises.client.facade.UserFacade;
-import com.github.jactor.rises.model.facade.JactorFacade;
-import com.github.jactor.rises.model.facade.MenuFacade;
-import com.github.jactor.rises.model.facade.menu.MenuItem;
-import com.github.jactor.rises.web.JactorWeb;
-import com.github.jactor.rises.web.i18n.MyMessages;
+import com.gitlab.jactor.rises.client.datatype.Username;
+import com.gitlab.jactor.rises.client.domain.User;
+import com.gitlab.jactor.rises.client.facade.UserFacade;
+import com.gitlab.jactor.rises.model.facade.JactorFacade;
+import com.gitlab.jactor.rises.model.facade.MenuFacade;
+import com.gitlab.jactor.rises.model.facade.menu.MenuItem;
+import com.gitlab.jactor.rises.web.JactorWeb;
+import com.gitlab.jactor.rises.web.i18n.MyMessages;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -26,7 +26,7 @@ import java.util.Collection;
 import java.util.Map;
 import java.util.Optional;
 
-import static com.github.jactor.rises.model.facade.menu.MenuItem.aMenuItem;
+import static com.gitlab.jactor.rises.model.facade.menu.MenuItem.aMenuItem;
 import static java.util.Collections.singletonList;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;

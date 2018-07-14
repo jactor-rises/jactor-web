@@ -1,7 +1,7 @@
-package com.github.jactor.rises.web.controller;
+package com.gitlab.jactor.rises.web.controller;
 
-import com.github.jactor.rises.web.dto.HomePageDto;
-import com.github.jactor.rises.web.i18n.MyMessages;
+import com.gitlab.jactor.rises.web.dto.HomePageDto;
+import com.gitlab.jactor.rises.web.i18n.MyMessages;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;

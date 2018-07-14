@@ -1,8 +1,8 @@
-package com.github.jactor.rises.web.controller;
+package com.gitlab.jactor.rises.web.controller;
 
-import com.github.jactor.rises.web.JactorWeb;
-import com.github.jactor.rises.web.dto.HomePageDto;
-import com.github.jactor.rises.web.i18n.MyMessages;
+import com.gitlab.jactor.rises.web.JactorWeb;
+import com.gitlab.jactor.rises.web.dto.HomePageDto;
+import com.gitlab.jactor.rises.web.i18n.MyMessages;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

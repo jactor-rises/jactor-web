@@ -1,4 +1,4 @@
-package com.github.jactor.rises.web.mvc;
+package com.gitlab.jactor.rises.web.mvc;
 
 import org.apache.commons.lang3.StringUtils;
 

@@ -1,6 +1,6 @@
-package com.github.jactor.rises.web;
+package com.gitlab.jactor.rises.web;
 
-import com.github.jactor.rises.web.interceptor.RequestInterceptor;
+import com.gitlab.jactor.rises.web.interceptor.RequestInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;

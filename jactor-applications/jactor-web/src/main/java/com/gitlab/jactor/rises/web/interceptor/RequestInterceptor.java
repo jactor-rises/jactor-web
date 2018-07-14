@@ -1,7 +1,7 @@
-package com.github.jactor.rises.web.interceptor;
+package com.gitlab.jactor.rises.web.interceptor;
 
-import com.github.jactor.rises.web.mvc.CurrentUrlManager;
-import com.github.jactor.rises.web.mvc.LanguageManager;
+import com.gitlab.jactor.rises.web.mvc.CurrentUrlManager;
+import com.gitlab.jactor.rises.web.mvc.LanguageManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;

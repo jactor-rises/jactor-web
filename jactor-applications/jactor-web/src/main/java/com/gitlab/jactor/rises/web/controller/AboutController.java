@@ -1,4 +1,4 @@
-package com.github.jactor.rises.web.controller;
+package com.gitlab.jactor.rises.web.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;

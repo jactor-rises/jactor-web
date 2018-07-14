@@ -1,4 +1,4 @@
-package com.github.jactor.rises.web.i18n;
+package com.gitlab.jactor.rises.web.i18n;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;

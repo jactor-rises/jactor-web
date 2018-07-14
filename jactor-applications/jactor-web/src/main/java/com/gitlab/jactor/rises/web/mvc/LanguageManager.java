@@ -1,4 +1,4 @@
-package com.github.jactor.rises.web.mvc;
+package com.gitlab.jactor.rises.web.mvc;
 
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Component;

@@ -1,7 +1,7 @@
-package com.github.jactor.rises.web;
+package com.gitlab.jactor.rises.web;
 
-import com.github.jactor.rises.commons.framework.SpringBeanNames;
-import com.github.jactor.rises.model.facade.JactorFacade;
+import com.gitlab.jactor.rises.commons.framework.SpringBeanNames;
+import com.gitlab.jactor.rises.model.facade.JactorFacade;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
