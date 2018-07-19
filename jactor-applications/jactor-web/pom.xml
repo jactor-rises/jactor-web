@@ -15,8 +15,7 @@
 
     <name>rises::jactor-applications::jactor-web</name>
     <description>A web module for rises</description>
-
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0</version>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
