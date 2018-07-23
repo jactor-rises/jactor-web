@@ -5,10 +5,9 @@ import com.gitlab.jactor.rises.web.controller.HomeController;
 import com.gitlab.jactor.rises.web.controller.UserController;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
-
-import javax.annotation.Resource;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -16,13 +15,13 @@ import static org.assertj.core.api.Assertions.assertThat;
 @SpringBootTest(classes = JactorWeb.class)
 class JactorWebIntegrationTest {
 
-    @Resource private HomeController homeController;
+    @Autowired private HomeController homeController;
 
-    @Resource private AboutController aboutController;
+    @Autowired private AboutController aboutController;
 
-    @Resource private UserController userController;
+    @Autowired private UserController userController;
 
-    @Test void shouldFetchControllersFromSpringFacade() {
+    @Test void shouldFetchControllersFromSpringContext() {
         assertThat(homeController).as("HomeController").isNotNull();
         assertThat(aboutController).as("AboutController").isNotNull();
         assertThat(userController).as("UserController").isNotNull();

@@ -1,14 +1,14 @@
-package com.gitlab.jactor.rises.model.facade.menu;
+package com.gitlab.jactor.rises.web.menu;
 
 import com.gitlab.jactor.rises.commons.datatype.Name;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static com.gitlab.jactor.rises.model.facade.menu.Menu.aMenu;
-import static com.gitlab.jactor.rises.model.facade.menu.MenuItem.aMenuItem;
-import static org.assertj.core.api.Assertions.assertThat;
+import static com.gitlab.jactor.rises.web.menu.Menu.aMenu;
+import static com.gitlab.jactor.rises.web.menu.MenuItem.aMenuItem;
 import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
 import static org.assertj.core.api.Assertions.assertThatNullPointerException;
 
@@ -44,6 +44,6 @@ class DefaultMenuFacadeTest {
 
         List<MenuItem> menuItems = defaultMenuFacadeToTest.fetchMenuItems(new Name("known.menu"));
 
-        assertThat(menuItems).contains(menuItem);
+        Assertions.assertThat(menuItems).contains(menuItem);
     }
 }

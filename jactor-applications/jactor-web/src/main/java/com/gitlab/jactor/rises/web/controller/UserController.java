@@ -2,9 +2,9 @@ package com.gitlab.jactor.rises.web.controller;
 
 import com.gitlab.jactor.rises.commons.datatype.Username;
 import com.gitlab.jactor.rises.model.facade.JactorFacade;
-import com.gitlab.jactor.rises.model.facade.MenuFacade;
+import com.gitlab.jactor.rises.web.menu.MenuFacade;
 import com.gitlab.jactor.rises.model.facade.UserFacade;
-import com.gitlab.jactor.rises.model.facade.menu.MenuItem;
+import com.gitlab.jactor.rises.web.menu.MenuItem;
 import com.gitlab.jactor.rises.web.dto.UserDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,7 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 import java.util.List;
 import java.util.Map;
 
-import static com.gitlab.jactor.rises.model.facade.menu.MenuItem.aMenuItem;
+import static com.gitlab.jactor.rises.web.menu.MenuItem.aMenuItem;
 import static java.util.Collections.singletonList;
 
 @Controller

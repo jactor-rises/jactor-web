@@ -34,8 +34,8 @@
 
     <dependencies>
         <dependency>
-            <groupId>com.gitlab.rises.jactor-commons</groupId>
-            <artifactId>jactor-client</artifactId>
+            <groupId>com.gitlab.rises</groupId>
+            <artifactId>jactor-commons</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
@@ -76,7 +76,7 @@
 
         <!-- Test scope -->
         <dependency>
-            <groupId>com.gitlab.rises.jactor-commons</groupId>
+            <groupId>com.gitlab.rises</groupId>
             <artifactId>jactor-test</artifactId>
             <version>${project.version}</version>
             <scope>test</scope>

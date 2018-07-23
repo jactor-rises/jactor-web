@@ -2,8 +2,6 @@ package com.gitlab.jactor.rises.web.menu;
 
 import com.gitlab.jactor.rises.commons.datatype.Name;
 import com.gitlab.jactor.rises.model.facade.JactorFacade;
-import com.gitlab.jactor.rises.model.facade.MenuFacade;
-import com.gitlab.jactor.rises.model.facade.menu.MenuItem;
 import com.gitlab.jactor.rises.web.JactorWeb;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

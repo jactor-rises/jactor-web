@@ -1,5 +1,6 @@
-package com.gitlab.jactor.rises.model.facade.menu;
+package com.gitlab.jactor.rises.web.menu;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,8 +18,7 @@ class MenuItems {
     }
 
     List<MenuItem> fetchAll() {
-        return menuItemByTarget.values().stream()
-                .collect(toList());
+        return new ArrayList<>(menuItemByTarget.values());
     }
 
     boolean hasTarget(String target) {

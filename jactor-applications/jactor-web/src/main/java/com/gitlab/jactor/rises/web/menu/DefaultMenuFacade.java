@@ -1,7 +1,6 @@
-package com.gitlab.jactor.rises.model.facade.menu;
+package com.gitlab.jactor.rises.web.menu;
 
 import com.gitlab.jactor.rises.commons.datatype.Name;
-import com.gitlab.jactor.rises.model.facade.MenuFacade;
 
 import java.util.HashMap;
 import java.util.List;
