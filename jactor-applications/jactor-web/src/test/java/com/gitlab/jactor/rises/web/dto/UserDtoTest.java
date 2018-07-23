@@ -8,9 +8,9 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import java.util.List;
 import java.util.Optional;
 
-import static com.gitlab.jactor.rises.model.domain.address.AddressDomain.anAddress;
-import static com.gitlab.jactor.rises.model.domain.person.PersonDomain.aPerson;
-import static com.gitlab.jactor.rises.model.domain.user.UserDomain.aUser;
+import static com.gitlab.jactor.rises.commons.dto.AddressDto.anAddress;
+import static com.gitlab.jactor.rises.commons.dto.PersonDto.aPerson;
+import static com.gitlab.jactor.rises.commons.dto.UserDto.aUser;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
@@ -60,7 +60,7 @@ class UserDtoTest {
 
     @DisplayName("should fetch the username of the user")
     @Test void shouldFetchTheUsername() {
-        UserDto testUserDto = new UserDto(aUser().withUsername("user").build());
+        UserDto testUserDto = new UserDto(aUser().withUserName("user").build());
 
         assertThat(testUserDto.fetchUsername()).isEqualTo("user");
     }

@@ -1,18 +1,16 @@
 package com.gitlab.jactor.rises.web.controller;
 
-import com.gitlab.jactor.rises.model.datatype.Username;
-import com.gitlab.jactor.rises.model.domain.User;
-import com.gitlab.jactor.rises.io.facade.UserFacade;
+import com.gitlab.jactor.rises.commons.datatype.Username;
+import com.gitlab.jactor.rises.commons.dto.UserDto;
 import com.gitlab.jactor.rises.model.facade.JactorFacade;
 import com.gitlab.jactor.rises.model.facade.MenuFacade;
+import com.gitlab.jactor.rises.model.facade.UserFacade;
 import com.gitlab.jactor.rises.model.facade.menu.MenuItem;
 import com.gitlab.jactor.rises.web.JactorWeb;
-import com.gitlab.jactor.rises.web.i18n.MyMessages;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -23,14 +21,15 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 
 import static com.gitlab.jactor.rises.model.facade.menu.MenuItem.aMenuItem;
 import static java.util.Collections.singletonList;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -49,7 +48,6 @@ class UserControllerTest {
     private static final String USER_JACTOR = "jactor";
 
     private MockMvc mockMvc;
-    private @Autowired MyMessages myMessages;
     private @MockBean UserFacade userFacadeMock;
     private @MockBean MenuFacade menuFacadeMock;
     private @Value("${spring.mvc.view.prefix}") String prefix;
@@ -83,13 +81,14 @@ class UserControllerTest {
 
     @DisplayName("should fetch user by username when the username is requested")
     @Test void shouldFetchTheUserIfChooseParameterExist() throws Exception {
-        when(userFacadeMock.find(new Username(USER_JACTOR))).thenReturn(Optional.of(mock(User.class)));
+        when(userFacadeMock.find(new Username(USER_JACTOR))).thenReturn(Optional.of(new UserDto()));
 
         ModelAndView modelAndView = mockMvc.perform(
                 get(USER_ENDPOINT).param(REQUEST_USER, USER_JACTOR)
         ).andExpect(status().isOk()).andReturn().getModelAndView();
 
-        assertThat(modelAndView.getModel().get("user")).isNotNull();
+        var model = modelAndView != null ? modelAndView.getModel() : new HashMap<>();
+        assertThat(model.get("user")).isNotNull();
     }
 
     @DisplayName("should fetch user by username, but not find user")
@@ -100,16 +99,18 @@ class UserControllerTest {
                 get(USER_ENDPOINT).param(REQUEST_USER, "someone")
         ).andExpect(status().isOk()).andReturn().getModelAndView();
 
-        assertThat(modelAndView.getModel().get("unknownUser")).isEqualTo("someone");
+        assertThat(Objects.requireNonNull(modelAndView).getModel().get("unknownUser")).isEqualTo("someone");
     }
 
     @DisplayName("should add the users menu to the model")
     @Test void shouldAddUserMenuToTheModel() throws Exception {
         when(menuFacadeMock.fetchMenuItems(JactorFacade.MENU_USERS)).thenReturn(singletonList(aMenuItem().build()));
 
-        Map<String, Object> model = mockMvc.perform(
-                get(USER_ENDPOINT).param(REQUEST_USER, USER_JACTOR)
-        ).andExpect(status().isOk()).andReturn().getModelAndView().getModel();
+        Map<String, Object> model = Objects.requireNonNull(
+                mockMvc.perform(
+                        get(USER_ENDPOINT).param(REQUEST_USER, USER_JACTOR)
+                ).andExpect(status().isOk()).andReturn().getModelAndView()
+        ).getModel();
 
         //noinspection unchecked
         assertThat((Collection<MenuItem>) model.get("usersMenu")).isNotEmpty();

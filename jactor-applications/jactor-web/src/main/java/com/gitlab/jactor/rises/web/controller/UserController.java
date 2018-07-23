@@ -1,22 +1,19 @@
 package com.gitlab.jactor.rises.web.controller;
 
-import com.gitlab.jactor.rises.model.datatype.Username;
-import com.gitlab.jactor.rises.model.domain.User;
-import com.gitlab.jactor.rises.io.facade.UserFacade;
+import com.gitlab.jactor.rises.commons.datatype.Username;
 import com.gitlab.jactor.rises.model.facade.JactorFacade;
 import com.gitlab.jactor.rises.model.facade.MenuFacade;
+import com.gitlab.jactor.rises.model.facade.UserFacade;
 import com.gitlab.jactor.rises.model.facade.menu.MenuItem;
 import com.gitlab.jactor.rises.web.dto.UserDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 import static com.gitlab.jactor.rises.model.facade.menu.MenuItem.aMenuItem;
 import static java.util.Collections.singletonList;
@@ -32,7 +29,7 @@ public class UserController {
         this.menuFacade = menuFacade;
     }
 
-    @RequestMapping(value = "/user", method = RequestMethod.GET)
+    @GetMapping(value = "/user")
     public ModelAndView get(@RequestParam(name = "choose", required = false) String username) {
         ModelAndView modelAndView = new ModelAndView("user");
 
@@ -47,7 +44,7 @@ public class UserController {
     }
 
     private void populateUser(@RequestParam(name = "choose", required = false) String username, ModelAndView modelAndView) {
-        Optional<User> user = userFacade.find(new Username(username));
+        var user = userFacade.find(new Username(username));
         Map<String, Object> modelMap = modelAndView.getModel();
 
         if (user.isPresent()) {

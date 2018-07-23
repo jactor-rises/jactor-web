@@ -1,6 +1,6 @@
 package com.gitlab.jactor.rises.web.menu;
 
-import com.gitlab.jactor.rises.model.datatype.Name;
+import com.gitlab.jactor.rises.commons.datatype.Name;
 import com.gitlab.jactor.rises.model.facade.JactorFacade;
 import com.gitlab.jactor.rises.model.facade.MenuFacade;
 import com.gitlab.jactor.rises.model.facade.menu.MenuItem;

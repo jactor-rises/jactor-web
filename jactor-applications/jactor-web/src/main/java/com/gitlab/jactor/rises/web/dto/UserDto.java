@@ -1,10 +1,8 @@
 package com.gitlab.jactor.rises.web.dto;
 
 
-import com.gitlab.jactor.rises.model.datatype.Name;
-import com.gitlab.jactor.rises.model.domain.Address;
-import com.gitlab.jactor.rises.model.domain.Person;
-import com.gitlab.jactor.rises.model.domain.User;
+import com.gitlab.jactor.rises.commons.dto.AddressDto;
+import com.gitlab.jactor.rises.commons.dto.PersonDto;
 
 import java.util.List;
 import java.util.Objects;
@@ -13,15 +11,15 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class UserDto {
-    private final Address address;
-    private final Person person;
-    private final User user;
+    private final AddressDto address;
+    private final PersonDto person;
+    private final com.gitlab.jactor.rises.commons.dto.UserDto user;
     private String fullDescription;
 
-    public UserDto(User user) {
+    public UserDto(com.gitlab.jactor.rises.commons.dto.UserDto user) {
         this.user = user;
-        person = Optional.ofNullable(user).map(User::getPerson).orElse(null);
-        address = Optional.ofNullable(person).map(Person::getAddress).orElse(null);
+        person = Optional.ofNullable(user).map(com.gitlab.jactor.rises.commons.dto.UserDto::getPerson).orElse(null);
+        address = Optional.ofNullable(person).map(PersonDto::getAddress).orElse(null);
     }
 
     public List<String> fetchAddress() {
@@ -40,51 +38,49 @@ public class UserDto {
 
     private String fetchAddressLine1() {
         return Optional.ofNullable(address)
-                .map(Address::getAddressLine1).orElse("");
+                .map(AddressDto::getAddressLine1).orElse(null);
     }
 
     private String fetchAddressLine2() {
         return Optional.ofNullable(address)
-                .map(Address::getAddressLine2).orElse(null);
+                .map(AddressDto::getAddressLine2).orElse(null);
     }
 
     private String fetchAddressLine3() {
         return Optional.ofNullable(address)
-                .map(Address::getAddressLine3).orElse(null);
+                .map(AddressDto::getAddressLine3).orElse(null);
     }
 
     private String fetchCity() {
         return Optional.ofNullable(address)
-                .map(Address::getCity).orElse(null);
+                .map(AddressDto::getCity).orElse(null);
     }
 
     private String fetchZipCode() {
         return String.valueOf(
                 Optional.ofNullable(address)
-                        .map(Address::getZipCode)
+                        .map(AddressDto::getZipCode)
                         .orElse(null)
         );
     }
 
     private Optional<String> fetchFirstname() {
         return Optional.ofNullable(person)
-                .map(Person::getFirstName)
-                .map(Name::asString);
+                .map(PersonDto::getFirstName);
     }
 
     private String fetchSurname() {
         return Optional.ofNullable(person)
-                .map(Person::getSurname)
-                .map(Name::asString).orElse("");
+                .map(PersonDto::getSurname).orElse("");
     }
 
     public String fetchUsername() {
-        return user.getUsername().asString();
+        return user.getUsername();
     }
 
     public Optional<String> fetchDescriptionCode() {
         return Optional.ofNullable(person)
-                .map(Person::getDescription);
+                .map(PersonDto::getDescription);
     }
 
     public String getFullDescription() {
