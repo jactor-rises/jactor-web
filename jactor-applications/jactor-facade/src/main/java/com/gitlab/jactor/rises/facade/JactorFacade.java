@@ -1,11 +1,10 @@
 package com.gitlab.jactor.rises.facade;
 
 import com.gitlab.jactor.rises.commons.framework.SpringBeanNames;
-import com.gitlab.jactor.rises.io.ctx.JactorIo;
-import com.gitlab.jactor.rises.io.rest.GuestBookRestService;
-import com.gitlab.jactor.rises.io.rest.UserRestService;
 import com.gitlab.jactor.rises.model.service.GuestBookDomainService;
+import com.gitlab.jactor.rises.model.service.GuestBookRestService;
 import com.gitlab.jactor.rises.model.service.UserDomainService;
+import com.gitlab.jactor.rises.model.service.UserRestService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
@@ -13,12 +12,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Import;
 
 import static java.util.Arrays.stream;
 
 @SpringBootApplication
-@Import(JactorIo.class)
 public class JactorFacade {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(JactorFacade.class);

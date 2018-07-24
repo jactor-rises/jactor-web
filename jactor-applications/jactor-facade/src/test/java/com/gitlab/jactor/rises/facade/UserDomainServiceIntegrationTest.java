@@ -2,8 +2,7 @@ package com.gitlab.jactor.rises.facade;
 
 import com.gitlab.jactor.rises.commons.datatype.Username;
 import com.gitlab.jactor.rises.commons.dto.UserDto;
-import com.gitlab.jactor.rises.facade.JactorFacade;
-import com.gitlab.jactor.rises.io.ctx.JactorIo;
+import com.gitlab.jactor.rises.facade.spring.JactorIo;
 import com.gitlab.jactor.rises.model.domain.user.UserDomain;
 import com.gitlab.jactor.rises.model.service.UserDomainService;
 import com.gitlab.jactor.rises.test.extension.validate.SuppressValidInstanceExtension;
