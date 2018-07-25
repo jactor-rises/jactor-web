@@ -1,6 +1,5 @@
 module jactor.rises.web {
     requires jactor.rises.commons;
-    requires jactor.rises.facade;
     requires org.apache.commons.lang3;
     requires slf4j.api;
     requires spring.beans;

@@ -27,7 +27,7 @@ import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
 @DisplayName("The BlogEntryIntegrationTest")
 @ExtendWith(SpringExtension.class)
-@ContextConfiguration(classes = JactorIo.class)
+@ContextConfiguration(classes = JactorRest.class)
 class BlogEntryIntegrationTest {
 
     private @Autowired BlogRestService blogRestService;

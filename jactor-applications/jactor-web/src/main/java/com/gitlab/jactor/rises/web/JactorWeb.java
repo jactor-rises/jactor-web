@@ -1,10 +1,10 @@
 package com.gitlab.jactor.rises.web;
 
+import com.gitlab.jactor.rises.commons.datatype.Name;
 import com.gitlab.jactor.rises.commons.framework.SpringBeanNames;
-import com.gitlab.jactor.rises.model.facade.JactorFacade;
-import com.gitlab.jactor.rises.web.menu.MenuFacade;
 import com.gitlab.jactor.rises.web.menu.DefaultMenuFacade;
 import com.gitlab.jactor.rises.web.menu.Menu;
+import com.gitlab.jactor.rises.web.menu.MenuFacade;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
@@ -12,19 +12,17 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Import;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-import static com.gitlab.jactor.rises.model.facade.JactorFacade.MENU_USERS;
 import static com.gitlab.jactor.rises.web.menu.Menu.aMenu;
 import static com.gitlab.jactor.rises.web.menu.MenuItem.aMenuItem;
 import static java.util.Arrays.stream;
 
 @SpringBootApplication
-@Import(JactorFacade.class)
 public class JactorWeb implements WebMvcConfigurer {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(JactorWeb.class);
+    public static final Name MENU_USERS = new Name("users");
 
     public @Bean CommandLineRunner commandLineRunner(ApplicationContext applicationContext) {
         return args -> inspect(applicationContext, args);

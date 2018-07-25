@@ -1,7 +1,6 @@
 package com.gitlab.jactor.rises.facade;
 
 import com.gitlab.jactor.rises.commons.datatype.Name;
-import com.gitlab.jactor.rises.facade.spring.JactorIo;
 import com.gitlab.jactor.rises.model.domain.address.AddressBuilder;
 import com.gitlab.jactor.rises.model.domain.guestbook.GuestBookDomain;
 import com.gitlab.jactor.rises.model.domain.guestbook.GuestBookEntryDomain;
@@ -15,7 +14,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.io.IOException;
@@ -34,7 +33,7 @@ import static org.junit.jupiter.api.Assumptions.assumeTrue;
 @DisplayName("The GuestBookDomainService")
 @ExtendWith(SpringExtension.class)
 @ExtendWith(SuppressValidInstanceExtension.class)
-@ContextConfiguration(classes = {JactorFacade.class, JactorIo.class})
+@SpringBootTest
 class GuestBookDomainServiceIntegrationTest {
 
     private @Autowired GuestBookDomainService guestBookDomainService;

@@ -38,11 +38,6 @@
             <artifactId>jactor-commons</artifactId>
             <version>${project.version}</version>
         </dependency>
-        <dependency>
-            <groupId>com.gitlab.rises.jactor-modules</groupId>
-            <artifactId>jactor-model-facade</artifactId>
-            <version>${project.version}</version>
-        </dependency>
 
         <!-- third party -->
         <dependency>

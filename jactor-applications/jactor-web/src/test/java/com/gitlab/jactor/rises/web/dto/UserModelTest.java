@@ -15,12 +15,12 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
 @ExtendWith(SuppressValidInstanceExtension.class)
-@DisplayName("A UserDto")
-class UserDtoTest {
+@DisplayName("A UserModel")
+class UserModelTest {
 
     @DisplayName("should fetch the address of the user as a list of strings")
     @Test void shouldFetchTheAddress() {
-        UserDto testUserDto = new UserDto(
+        UserModel testUserModel = new UserModel(
                 aUser().with(aPerson().with(anAddress()
                         .withAddressLine1("address line 1")
                         .withAddressLine2("address line 2")
@@ -30,7 +30,7 @@ class UserDtoTest {
                 )).build()
         );
 
-        List<String> address = testUserDto.fetchAddress();
+        List<String> address = testUserModel.fetchAddress();
 
         assertThat(address).containsExactly(
                 "address line 1",
@@ -43,14 +43,14 @@ class UserDtoTest {
 
     @DisplayName("should not fetch parts of address being null")
     @Test void shouldGetTheAddress() {
-        UserDto testUserDto = new UserDto(
+        UserModel testUserModel = new UserModel(
                 aUser().with(aPerson().with(anAddress()
                         .withAddressLine1("address line 1")
                         .withZipCode(1234)
                 )).build()
         );
 
-        List<String> address = testUserDto.fetchAddress();
+        List<String> address = testUserModel.fetchAddress();
 
         assertThat(address).containsExactly(
                 "address line 1",
@@ -60,14 +60,14 @@ class UserDtoTest {
 
     @DisplayName("should fetch the username of the user")
     @Test void shouldFetchTheUsername() {
-        UserDto testUserDto = new UserDto(aUser().withUserName("user").build());
+        UserModel testUserModel = new UserModel(aUser().withUserName("user").build());
 
-        assertThat(testUserDto.fetchUsername()).isEqualTo("user");
+        assertThat(testUserModel.fetchUsername()).isEqualTo("user");
     }
 
     @DisplayName("should fetch the person behind the user")
     @Test void shouldFetchThePersonBehindTheUser() {
-        UserDto testUserDto = new UserDto(
+        UserModel testUserModel = new UserModel(
                 aUser().with(aPerson()
                         .withFirstName("John")
                         .withSurname("Smith")
@@ -76,8 +76,8 @@ class UserDtoTest {
         );
 
         assertAll(
-                () -> assertThat(testUserDto.fetchFullName()).isEqualTo("John Smith"),
-                () -> assertThat(testUserDto.fetchDescriptionCode()).isEqualTo(Optional.of("description"))
+                () -> assertThat(testUserModel.fetchFullName()).isEqualTo("John Smith"),
+                () -> assertThat(testUserModel.fetchDescriptionCode()).isEqualTo(Optional.of("description"))
         );
     }
 }

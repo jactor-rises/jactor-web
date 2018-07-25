@@ -1,7 +1,6 @@
 package com.gitlab.jactor.rises.web.menu;
 
 import com.gitlab.jactor.rises.commons.datatype.Name;
-import com.gitlab.jactor.rises.model.facade.JactorFacade;
 import com.gitlab.jactor.rises.web.JactorWeb;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -9,8 +8,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
-
-import java.util.List;
 
 import static java.util.stream.Collectors.toList;
 import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
@@ -34,7 +31,7 @@ class MenuFacadeIntegrationTest {
         String target = "user?choose=jactor";
         Name name = new Name("jactor");
 
-        List<MenuItem> menuItems = testMenuFacade.fetchMenuItems(JactorFacade.MENU_USERS).stream()
+        var menuItems = testMenuFacade.fetchMenuItems(JactorWeb.MENU_USERS).stream()
                 .flatMap(menuItem -> menuItem.fetchChildren().stream())
                 .collect(toList());
 
@@ -42,11 +39,9 @@ class MenuFacadeIntegrationTest {
                 softly -> {
                     for (MenuItem menuItem : menuItems) {
                         if (menuItem.hasChildren() && menuItem.isNamed("menu.users.default")) {
-                            softly.assertThat(menuItem.isChildChosen(target)).as("'menu.users.default' should have chosen child")
-                                    .isEqualTo(true);
+                            softly.assertThat(menuItem.isChildChosen(target)).as("'menu.users.default' should have chosen child").isEqualTo(true);
                         } else if (menuItem.hasChildren()) {
-                            softly.assertThat(menuItem.isChildChosen(target)).as("%s should not have chosen child", menuItem.getItemName())
-                                    .isEqualTo(false);
+                            softly.assertThat(menuItem.isChildChosen(target)).as("%s should not have chosen child", menuItem.getItemName()).isEqualTo(false);
                         } else {
                             softly.assertThat(menuItem.isChosen(target)).as("expected %s to be chosen, not %s", name, menuItem.getItemName())
                                     .isEqualTo(name.equals(menuItem.getItemName()));

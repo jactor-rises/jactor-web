@@ -2,7 +2,6 @@ package com.gitlab.jactor.rises.facade;
 
 import com.gitlab.jactor.rises.commons.datatype.Username;
 import com.gitlab.jactor.rises.commons.dto.UserDto;
-import com.gitlab.jactor.rises.facade.spring.JactorIo;
 import com.gitlab.jactor.rises.model.domain.user.UserDomain;
 import com.gitlab.jactor.rises.model.service.UserDomainService;
 import com.gitlab.jactor.rises.test.extension.validate.SuppressValidInstanceExtension;
@@ -12,7 +11,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.io.IOException;
@@ -30,7 +29,7 @@ import static org.junit.jupiter.api.Assumptions.assumeTrue;
 @DisplayName("The UserDomainService")
 @ExtendWith(SpringExtension.class)
 @ExtendWith(SuppressValidInstanceExtension.class)
-@ContextConfiguration(classes = {JactorFacade.class, JactorIo.class})
+@SpringBootTest
 class UserDomainServiceIntegrationTest {
 
     private @Autowired UserDomainService userDomainService;

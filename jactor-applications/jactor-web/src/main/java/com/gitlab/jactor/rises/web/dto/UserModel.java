@@ -3,6 +3,7 @@ package com.gitlab.jactor.rises.web.dto;
 
 import com.gitlab.jactor.rises.commons.dto.AddressDto;
 import com.gitlab.jactor.rises.commons.dto.PersonDto;
+import com.gitlab.jactor.rises.commons.dto.UserDto;
 
 import java.util.List;
 import java.util.Objects;
@@ -10,15 +11,15 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class UserDto {
+public class UserModel {
     private final AddressDto address;
     private final PersonDto person;
-    private final com.gitlab.jactor.rises.commons.dto.UserDto user;
+    private final UserDto user;
     private String fullDescription;
 
-    public UserDto(com.gitlab.jactor.rises.commons.dto.UserDto user) {
+    public UserModel(UserDto user) {
         this.user = user;
-        person = Optional.ofNullable(user).map(com.gitlab.jactor.rises.commons.dto.UserDto::getPerson).orElse(null);
+        person = Optional.ofNullable(user).map(UserDto::getPerson).orElse(null);
         address = Optional.ofNullable(person).map(PersonDto::getAddress).orElse(null);
     }
 
