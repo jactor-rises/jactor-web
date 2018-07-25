@@ -3,9 +3,10 @@ package com.gitlab.jactor.rises.web.controller;
 import com.gitlab.jactor.rises.commons.datatype.Username;
 import com.gitlab.jactor.rises.commons.dto.UserDto;
 import com.gitlab.jactor.rises.web.JactorWeb;
+import com.gitlab.jactor.rises.web.JactorWebBeans;
 import com.gitlab.jactor.rises.web.menu.MenuFacade;
 import com.gitlab.jactor.rises.web.menu.MenuItem;
-import com.gitlab.jactor.rises.web.service.UserService;
+import com.gitlab.jactor.rises.web.service.UserRestService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -47,7 +48,7 @@ class UserControllerTest {
     private static final String USER_JACTOR = "jactor";
 
     private MockMvc mockMvc;
-    private @MockBean UserService userServiceMock;
+    private @MockBean UserRestService userRestServiceMock;
     private @MockBean MenuFacade menuFacadeMock;
     private @Value("${spring.mvc.view.prefix}") String prefix;
     private @Value("${spring.mvc.view.suffix}") String suffix;
@@ -57,7 +58,7 @@ class UserControllerTest {
         internalResourceViewResolver.setPrefix(prefix);
         internalResourceViewResolver.setSuffix(suffix);
 
-        mockMvc = standaloneSetup(new UserController(userServiceMock, menuFacadeMock))
+        mockMvc = standaloneSetup(new UserController(userRestServiceMock, menuFacadeMock))
                 .setViewResolvers(internalResourceViewResolver)
                 .build();
     }
@@ -66,7 +67,7 @@ class UserControllerTest {
     @Test void shouldNotFetchUserByUsernameIfTheUsernameIsMissongFromTheRequest() throws Exception {
         mockMvc.perform(get(USER_ENDPOINT)).andExpect(status().isOk());
 
-        verify(userServiceMock, never()).find(any(Username.class));
+        verify(userRestServiceMock, never()).find(any(Username.class));
     }
 
     @DisplayName("should not fetch user by username when the username is requested, but is only whitespace")
@@ -75,12 +76,12 @@ class UserControllerTest {
                 get(USER_ENDPOINT).requestAttr(REQUEST_USER, " \n \t")
         ).andExpect(status().isOk());
 
-        verify(userServiceMock, never()).find(any(Username.class));
+        verify(userRestServiceMock, never()).find(any(Username.class));
     }
 
     @DisplayName("should fetch user by username when the username is requested")
     @Test void shouldFetchTheUserIfChooseParameterExist() throws Exception {
-        when(userServiceMock.find(new Username(USER_JACTOR))).thenReturn(Optional.of(new UserDto()));
+        when(userRestServiceMock.find(new Username(USER_JACTOR))).thenReturn(Optional.of(new UserDto()));
 
         ModelAndView modelAndView = mockMvc.perform(
                 get(USER_ENDPOINT).param(REQUEST_USER, USER_JACTOR)
@@ -92,7 +93,7 @@ class UserControllerTest {
 
     @DisplayName("should fetch user by username, but not find user")
     @Test void shouldFetchTheUserByUsernameButNotFindUser() throws Exception {
-        when(userServiceMock.find(any(Username.class))).thenReturn(Optional.empty());
+        when(userRestServiceMock.find(any(Username.class))).thenReturn(Optional.empty());
 
         ModelAndView modelAndView = mockMvc.perform(
                 get(USER_ENDPOINT).param(REQUEST_USER, "someone")
@@ -103,7 +104,7 @@ class UserControllerTest {
 
     @DisplayName("should add the users menu to the model")
     @Test void shouldAddUserMenuToTheModel() throws Exception {
-        when(menuFacadeMock.fetchMenuItems(JactorWeb.MENU_USERS)).thenReturn(singletonList(aMenuItem().build()));
+        when(menuFacadeMock.fetchMenuItems(JactorWebBeans.MENU_USERS)).thenReturn(singletonList(aMenuItem().build()));
 
         Map<String, Object> model = Objects.requireNonNull(
                 mockMvc.perform(

@@ -2,6 +2,7 @@ package com.gitlab.jactor.rises.web.menu;
 
 import com.gitlab.jactor.rises.commons.datatype.Name;
 import com.gitlab.jactor.rises.web.JactorWeb;
+import com.gitlab.jactor.rises.web.JactorWebBeans;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -31,7 +32,7 @@ class MenuFacadeIntegrationTest {
         String target = "user?choose=jactor";
         Name name = new Name("jactor");
 
-        var menuItems = testMenuFacade.fetchMenuItems(JactorWeb.MENU_USERS).stream()
+        var menuItems = testMenuFacade.fetchMenuItems(JactorWebBeans.MENU_USERS).stream()
                 .flatMap(menuItem -> menuItem.fetchChildren().stream())
                 .collect(toList());
 

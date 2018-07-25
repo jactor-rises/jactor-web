@@ -1,10 +1,10 @@
 package com.gitlab.jactor.rises.web.controller;
 
 import com.gitlab.jactor.rises.commons.datatype.Username;
-import com.gitlab.jactor.rises.web.JactorWeb;
+import com.gitlab.jactor.rises.web.JactorWebBeans;
 import com.gitlab.jactor.rises.web.dto.UserModel;
 import com.gitlab.jactor.rises.web.menu.MenuFacade;
-import com.gitlab.jactor.rises.web.service.UserService;
+import com.gitlab.jactor.rises.web.service.UserRestService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,11 +20,11 @@ import static java.util.Collections.singletonList;
 @Controller
 public class UserController {
 
-    private final UserService userService;
+    private final UserRestService userRestService;
     private final MenuFacade menuFacade;
 
-    @Autowired public UserController(UserService userFacade, MenuFacade menuFacade) {
-        this.userService = userFacade;
+    @Autowired public UserController(UserRestService userRestService, MenuFacade menuFacade) {
+        this.userRestService = userRestService;
         this.menuFacade = menuFacade;
     }
 
@@ -42,7 +42,7 @@ public class UserController {
     }
 
     private void populateUser(String username, ModelAndView modelAndView) {
-        var user = userService.find(new Username(username));
+        var user = userRestService.find(new Username(username));
         Map<String, Object> modelMap = modelAndView.getModel();
 
         if (user.isPresent()) {
@@ -53,7 +53,7 @@ public class UserController {
     }
 
     private void populateUserMenu(ModelAndView modelAndView) {
-        var usernames = userService.findAllUsernames();
+        var usernames = userRestService.findAllUsernames();
         modelAndView.addObject("usersMenu", singletonList(
                 aMenuItem()
                         .withName("menu.users.choose")
@@ -64,7 +64,7 @@ public class UserController {
     }
 
     private void populateDefaultUsers(ModelAndView modelAndView) {
-        var menuItems = menuFacade.fetchMenuItems(JactorWeb.MENU_USERS);
+        var menuItems = menuFacade.fetchMenuItems(JactorWebBeans.MENU_USERS);
         modelAndView.addObject("defaultUsers", menuItems);
     }
 }
