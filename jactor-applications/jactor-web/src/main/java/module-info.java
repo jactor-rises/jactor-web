@@ -1,7 +1,6 @@
-module com.gitlab.jactor.rises.web {
-    requires com.gitlab.jactor.rises.client;
-    requires com.gitlab.jactor.rises.model.facade;
-
+module jactor.rises.web {
+    requires jactor.rises.commons;
+    requires org.apache.commons.lang3;
     requires slf4j.api;
     requires spring.beans;
     requires spring.boot;

@@ -22,10 +22,7 @@ public class RequestInterceptor implements HandlerInterceptor {
     private final String contextPath;
     private final LanguageManager languageManager;
 
-    public @Autowired RequestInterceptor(
-            @Value("${server.servlet.context-path}") String contextPath,
-            LanguageManager languageManager
-    ) {
+    @Autowired public RequestInterceptor(@Value("${server.servlet.context-path}") String contextPath, LanguageManager languageManager) {
         this.contextPath = contextPath;
         this.languageManager = languageManager;
     }

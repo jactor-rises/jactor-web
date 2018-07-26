@@ -15,7 +15,7 @@
 
     <name>rises::jactor-applications::jactor-web</name>
     <description>A web module for rises</description>
-    <version>1.0</version>
+    <version>1.0.1-SNAPSHOT</version>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -34,13 +34,8 @@
 
     <dependencies>
         <dependency>
-            <groupId>com.gitlab.rises.jactor-commons</groupId>
-            <artifactId>jactor-client</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.gitlab.rises.jactor-modules</groupId>
-            <artifactId>jactor-model-facade</artifactId>
+            <groupId>com.gitlab.rises</groupId>
+            <artifactId>jactor-commons</artifactId>
             <version>${project.version}</version>
         </dependency>
 
@@ -76,7 +71,7 @@
 
         <!-- Test scope -->
         <dependency>
-            <groupId>com.gitlab.rises.jactor-commons</groupId>
+            <groupId>com.gitlab.rises</groupId>
             <artifactId>jactor-test</artifactId>
             <version>${project.version}</version>
             <scope>test</scope>
