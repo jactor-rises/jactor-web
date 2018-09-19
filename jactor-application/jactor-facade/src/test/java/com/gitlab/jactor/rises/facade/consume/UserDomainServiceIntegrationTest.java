@@ -1,4 +1,4 @@
-package com.gitlab.jactor.rises.facade.spring;
+package com.gitlab.jactor.rises.facade.consume;
 
 import com.gitlab.jactor.rises.commons.datatype.Username;
 import com.gitlab.jactor.rises.commons.dto.UserDto;

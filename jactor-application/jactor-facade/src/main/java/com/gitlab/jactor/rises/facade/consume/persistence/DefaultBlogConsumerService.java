@@ -1,17 +1,17 @@
-package com.gitlab.jactor.rises.facade.rest;
+package com.gitlab.jactor.rises.facade.consume.persistence;
 
 import com.gitlab.jactor.rises.commons.dto.BlogDto;
 import com.gitlab.jactor.rises.commons.dto.BlogEntryDto;
-import com.gitlab.jactor.rises.model.service.BlogRestService;
+import com.gitlab.jactor.rises.model.service.BlogConsumerService;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
 import java.io.Serializable;
 
-public class DefaultBlogRestService extends AbstractRestService implements BlogRestService {
+public class DefaultBlogConsumerService extends AbstractConsumerService implements BlogConsumerService {
 
-    public DefaultBlogRestService(RestTemplate restTemplate, String baseUrl) {
+    public DefaultBlogConsumerService(RestTemplate restTemplate, String baseUrl) {
         super(restTemplate, baseUrl);
     }
 

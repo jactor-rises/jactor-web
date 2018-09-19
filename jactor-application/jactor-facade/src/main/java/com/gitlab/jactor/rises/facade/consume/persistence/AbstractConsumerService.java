@@ -1,4 +1,4 @@
-package com.gitlab.jactor.rises.facade.rest;
+package com.gitlab.jactor.rises.facade.consume.persistence;
 
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
@@ -11,11 +11,11 @@ import java.util.List;
 
 import static java.util.Arrays.asList;
 
-class AbstractRestService {
+class AbstractConsumerService {
     private final RestTemplate restTemplate;
     private final String baseUrl;
 
-    AbstractRestService(RestTemplate restTemplate, String baseUrl) {
+    AbstractConsumerService(RestTemplate restTemplate, String baseUrl) {
         this.restTemplate = restTemplate;
         this.baseUrl = baseUrl;
     }

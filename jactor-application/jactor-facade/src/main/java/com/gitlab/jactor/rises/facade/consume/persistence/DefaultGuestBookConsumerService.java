@@ -1,18 +1,18 @@
-package com.gitlab.jactor.rises.facade.rest;
+package com.gitlab.jactor.rises.facade.consume.persistence;
 
 import com.gitlab.jactor.rises.commons.dto.GuestBookDto;
 import com.gitlab.jactor.rises.commons.dto.GuestBookEntryDto;
 
-import com.gitlab.jactor.rises.model.service.GuestBookRestService;
+import com.gitlab.jactor.rises.model.service.GuestBookConsumerService;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
 import java.io.Serializable;
 
-public class DefaultGuestBookRestService extends AbstractRestService implements GuestBookRestService {
+public class DefaultGuestBookConsumerService extends AbstractConsumerService implements GuestBookConsumerService {
 
-    public DefaultGuestBookRestService(RestTemplate restTemplate, String baseUrl) {
+    public DefaultGuestBookConsumerService(RestTemplate restTemplate, String baseUrl) {
         super(restTemplate, baseUrl);
     }
 

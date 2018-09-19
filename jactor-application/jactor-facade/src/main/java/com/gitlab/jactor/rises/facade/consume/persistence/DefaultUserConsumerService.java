@@ -1,8 +1,8 @@
-package com.gitlab.jactor.rises.facade.rest;
+package com.gitlab.jactor.rises.facade.consume.persistence;
 
 import com.gitlab.jactor.rises.commons.datatype.Username;
 import com.gitlab.jactor.rises.commons.dto.UserDto;
-import com.gitlab.jactor.rises.model.service.UserRestService;
+import com.gitlab.jactor.rises.model.service.UserConsumerService;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
@@ -11,9 +11,9 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Optional;
 
-public class DefaultUserRestService extends AbstractRestService implements UserRestService {
+public class DefaultUserConsumerService extends AbstractConsumerService implements UserConsumerService {
 
-    public DefaultUserRestService(RestTemplate restTemplate, String baseUrl) {
+    public DefaultUserConsumerService(RestTemplate restTemplate, String baseUrl) {
         super(restTemplate, baseUrl);
     }
 
