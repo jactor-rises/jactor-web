@@ -1,9 +1,9 @@
 package com.gitlab.jactor.rises.web.controller;
 
+import com.gitlab.jactor.rises.commons.datatype.Name;
 import com.gitlab.jactor.rises.commons.datatype.Username;
 import com.gitlab.jactor.rises.commons.dto.UserDto;
 import com.gitlab.jactor.rises.web.JactorWeb;
-import com.gitlab.jactor.rises.web.JactorWebBeans;
 import com.gitlab.jactor.rises.web.menu.MenuFacade;
 import com.gitlab.jactor.rises.web.menu.MenuItem;
 import com.gitlab.jactor.rises.web.service.UserRestService;
@@ -50,6 +50,7 @@ class UserControllerTest {
     private MockMvc mockMvc;
     private @MockBean UserRestService userRestServiceMock;
     private @MockBean MenuFacade menuFacadeMock;
+    private @Value("jactor-web.menu.users") String menuNameUsers;
     private @Value("${spring.mvc.view.prefix}") String prefix;
     private @Value("${spring.mvc.view.suffix}") String suffix;
 
@@ -58,7 +59,7 @@ class UserControllerTest {
         internalResourceViewResolver.setPrefix(prefix);
         internalResourceViewResolver.setSuffix(suffix);
 
-        mockMvc = standaloneSetup(new UserController(userRestServiceMock, menuFacadeMock))
+        mockMvc = standaloneSetup(new UserController(userRestServiceMock, menuFacadeMock, menuNameUsers))
                 .setViewResolvers(internalResourceViewResolver)
                 .build();
     }
@@ -104,7 +105,7 @@ class UserControllerTest {
 
     @DisplayName("should add the users menu to the model")
     @Test void shouldAddUserMenuToTheModel() throws Exception {
-        when(menuFacadeMock.fetchMenuItems(JactorWebBeans.MENU_USERS)).thenReturn(singletonList(aMenuItem().build()));
+        when(menuFacadeMock.fetchMenuItems(Name.of(menuNameUsers))).thenReturn(singletonList(aMenuItem().build()));
 
         Map<String, Object> model = Objects.requireNonNull(
                 mockMvc.perform(

@@ -2,11 +2,12 @@ package com.gitlab.jactor.rises.web.menu;
 
 import com.gitlab.jactor.rises.commons.datatype.Name;
 import com.gitlab.jactor.rises.web.JactorWeb;
-import com.gitlab.jactor.rises.web.JactorWebBeans;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
@@ -16,9 +17,11 @@ import static org.assertj.core.api.SoftAssertions.assertSoftly;
 
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = JactorWeb.class)
+@PropertySource("classpath:application.properties")
 @DisplayName("The MenuFacade")
 class MenuFacadeIntegrationTest {
     private @Autowired MenuFacade testMenuFacade;
+    private @Value("${jactor-web.menu.users}") String menuNameUsers;
 
     @DisplayName("should fail when fetching items for an unknown menu")
     @Test void shouldFailWhenFetchingItemsForAnUnknownMenu() {
@@ -32,7 +35,7 @@ class MenuFacadeIntegrationTest {
         String target = "user?choose=jactor";
         Name name = new Name("jactor");
 
-        var menuItems = testMenuFacade.fetchMenuItems(JactorWebBeans.MENU_USERS).stream()
+        var menuItems = testMenuFacade.fetchMenuItems(Name.of(menuNameUsers)).stream()
                 .flatMap(menuItem -> menuItem.fetchChildren().stream())
                 .collect(toList());
 

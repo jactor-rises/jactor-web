@@ -5,38 +5,41 @@ import com.gitlab.jactor.rises.commons.dto.UserDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.util.UriTemplateHandler;
 
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
 public class UserRestService {
-    private final RestTemplate restTemplate;
-    private final String baseUrl;
+    private final String endpoint;
+    private final UriTemplateHandler uriTemplateHandler;
 
-    public UserRestService(String baseUrl, RestTemplate restTemplate) {
-        this.baseUrl = baseUrl;
-        this.restTemplate = restTemplate;
+    public UserRestService(UriTemplateHandler uriTemplateHandler, String endpoint) {
+        this.uriTemplateHandler = uriTemplateHandler;
+        this.endpoint = endpoint;
     }
 
     public Optional<UserDto> find(Username username) {
+        RestTemplate restTemplate = RestTemplateFactory.initNew(uriTemplateHandler);
         ResponseEntity<UserDto> responseEntity = restTemplate.getForEntity(
-                fullUrl("/user/find/" + username.asString()), UserDto.class
+                endpointMethod("/find/" + username.asString()), UserDto.class
         );
 
         return Optional.ofNullable(bodyOf(responseEntity));
     }
 
     public List<String> findAllUsernames() {
+        RestTemplate restTemplate = RestTemplateFactory.initNew(uriTemplateHandler);
         ResponseEntity<String[]> responseEntity = restTemplate.getForEntity(
-                fullUrl("/user/all/usernames"), String[].class
+                endpointMethod("/all/usernames"), String[].class
         );
 
         return List.of(Objects.requireNonNull(responseEntity.getBody()));
     }
 
-    private String fullUrl(String url) {
-        return baseUrl + url;
+    private String endpointMethod(String url) {
+        return endpoint + url;
     }
 
     private UserDto bodyOf(ResponseEntity<UserDto> responseEntity) {

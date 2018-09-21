@@ -1,12 +1,13 @@
 package com.gitlab.jactor.rises.web.controller;
 
+import com.gitlab.jactor.rises.commons.datatype.Name;
 import com.gitlab.jactor.rises.commons.datatype.Username;
-import com.gitlab.jactor.rises.web.JactorWebBeans;
 import com.gitlab.jactor.rises.web.dto.UserModel;
 import com.gitlab.jactor.rises.web.menu.MenuFacade;
 import com.gitlab.jactor.rises.web.service.UserRestService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -22,10 +23,12 @@ public class UserController {
 
     private final UserRestService userRestService;
     private final MenuFacade menuFacade;
+    private final String menuNameUsers;
 
-    @Autowired public UserController(UserRestService userRestService, MenuFacade menuFacade) {
+    @Autowired public UserController(UserRestService userRestService, MenuFacade menuFacade, @Value("${jactor-web.menu.users}") String menuNameUsers) {
         this.userRestService = userRestService;
         this.menuFacade = menuFacade;
+        this.menuNameUsers = menuNameUsers;
     }
 
     @GetMapping(value = "/user") public ModelAndView get(@RequestParam(name = "choose", required = false) String username) {
@@ -64,7 +67,7 @@ public class UserController {
     }
 
     private void populateDefaultUsers(ModelAndView modelAndView) {
-        var menuItems = menuFacade.fetchMenuItems(JactorWebBeans.MENU_USERS);
+        var menuItems = menuFacade.fetchMenuItems(Name.of(menuNameUsers));
         modelAndView.addObject("defaultUsers", menuItems);
     }
 }
