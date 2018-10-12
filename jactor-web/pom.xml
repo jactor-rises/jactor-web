@@ -17,7 +17,7 @@
     <description>A web module for rises</description>
     <version>1.1.1-SNAPSHOT</version>
 
-       <properties>
+    <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
