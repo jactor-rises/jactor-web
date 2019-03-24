@@ -1,6 +1,7 @@
-package com.gitlab.jactor.rises.web.handler;
+package com.github.jactor.web.handler;
 
-import com.gitlab.jactor.rises.commons.stack.StackResolver;
+import java.util.Optional;
+import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpHeaders;
@@ -14,12 +15,40 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 @ControllerAdvice
 public class JactorResponseEntityExceptionHandler extends ResponseEntityExceptionHandler {
 
-    private static final Logger LOGG = LoggerFactory.getLogger(JactorResponseEntityExceptionHandler.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(JactorResponseEntityExceptionHandler.class);
+  private static final String CAUSED_BY_MSG = "  ...caused by %s: %s ";
 
-    @ExceptionHandler(value = RuntimeException.class)
-    public ResponseEntity<Object> handleInternalServerError(RuntimeException rex, HttpHeaders headers, WebRequest webRequest) {
-        StackResolver.logStack(LOGG::error, LOGG::error, rex);
+  @ExceptionHandler(value = RuntimeException.class)
+  public ResponseEntity<Object> handleInternalServerError(RuntimeException rex, HttpHeaders headers, WebRequest webRequest) {
+    logException(rex, webRequest);
+    logCause(rex.getCause());
 
-        return handleExceptionInternal(rex, null, headers, HttpStatus.INTERNAL_SERVER_ERROR, webRequest);
+    return handleExceptionInternal(rex, null, headers, HttpStatus.INTERNAL_SERVER_ERROR, webRequest);
+  }
+
+  private void logException(Throwable throwable, WebRequest webRequest) {
+    LOGGER.error("Exception caught in {} {}", webRequest.getContextPath(), webRequest.getDescription(true));
+    LOGGER.error("Failed by {}: {}", throwable.getClass().getName(), throwable.getMessage());
+
+    logCause(throwable.getCause());
+
+    StackWalker.getInstance().walk(
+        stackFrameStream -> stackFrameStream
+            .filter(stackFrame -> stackFrame.getClassName().startsWith("com.github.jactor"))
+            .skip(1) // skip this method
+            .collect(Collectors.toList())
+    ).forEach(
+        stackFrame -> LOGGER.error(" - {}(line:{}) - {}", stackFrame.getClassName(), stackFrame.getLineNumber(), stackFrame.getFileName())
+    );
+  }
+
+  private void logCause(Throwable cause) {
+    Optional<Throwable> possibleCause = Optional.ofNullable(cause);
+
+    while (possibleCause.isPresent()) {
+      Throwable theCause = possibleCause.get();
+      LOGGER.error(String.format(CAUSED_BY_MSG, theCause.getClass().getName(), theCause.getMessage()), theCause);
+      possibleCause = Optional.ofNullable(theCause.getCause());
     }
+  }
 }

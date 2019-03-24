@@ -1,73 +1,74 @@
-package com.gitlab.jactor.rises.web.controller;
+package com.github.jactor.web.controller;
 
-import com.gitlab.jactor.rises.commons.datatype.Name;
-import com.gitlab.jactor.rises.commons.datatype.Username;
-import com.gitlab.jactor.rises.web.dto.UserModel;
-import com.gitlab.jactor.rises.web.menu.MenuFacade;
-import com.gitlab.jactor.rises.web.service.UserRestService;
-import org.apache.commons.lang3.StringUtils;
+import static java.util.stream.Collectors.toList;
+
+import com.github.jactor.web.JactorWebBeans;
+import com.github.jactor.web.consumer.UserConsumer;
+import com.github.jactor.web.dto.UserModel;
+import com.github.jactor.web.menu.MenuFacade;
+import com.github.jactor.web.menu.MenuItem;
+import java.util.List;
+import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.Map;
-
-import static com.gitlab.jactor.rises.web.menu.MenuItem.aMenuItem;
-import static java.util.Collections.singletonList;
-
 @Controller
 public class UserController {
 
-    private final UserRestService userRestService;
-    private final MenuFacade menuFacade;
-    private final String menuNameUsers;
+  private final MenuFacade menuFacade;
+  private final UserConsumer userConsumer;
 
-    @Autowired public UserController(UserRestService userRestService, MenuFacade menuFacade, @Value("${jactor-web.menu.users}") String menuNameUsers) {
-        this.userRestService = userRestService;
-        this.menuFacade = menuFacade;
-        this.menuNameUsers = menuNameUsers;
+  @Autowired
+  public UserController(UserConsumer userConsumer, MenuFacade menuFacade) {
+    this.userConsumer = userConsumer;
+    this.menuFacade = menuFacade;
+  }
+
+  @GetMapping(value = "/user")
+  public ModelAndView get(@RequestParam(name = "choose", required = false) String username) {
+    ModelAndView modelAndView = new ModelAndView("user");
+
+    if (!StringUtils.isEmpty(username)) {
+      populateUser(username, modelAndView);
     }
 
-    @GetMapping(value = "/user") public ModelAndView get(@RequestParam(name = "choose", required = false) String username) {
-        ModelAndView modelAndView = new ModelAndView("user");
+    populateUserMenu(modelAndView);
+    populateDefaultUsers(modelAndView);
 
-        if (StringUtils.isNoneBlank(username)) {
-            populateUser(username, modelAndView);
-        }
+    return modelAndView;
+  }
 
-        populateUserMenu(modelAndView);
-        populateDefaultUsers(modelAndView);
+  private void populateUser(String username, ModelAndView modelAndView) {
+    var user = userConsumer.find(username);
+    Map<String, Object> modelMap = modelAndView.getModel();
 
-        return modelAndView;
+    if (user.isPresent()) {
+      modelMap.put("user", new UserModel(user.get()));
+    } else {
+      modelMap.put("unknownUser", username);
     }
+  }
 
-    private void populateUser(String username, ModelAndView modelAndView) {
-        var user = userRestService.find(new Username(username));
-        Map<String, Object> modelMap = modelAndView.getModel();
+  private void populateUserMenu(ModelAndView modelAndView) {
+    var usernames = userConsumer.findAllUsernames();
+    modelAndView.addObject("usersMenu", List.of(
+        new MenuItem(
+            "menu.users.choose",
+            usernames.stream().map(this::chooseUserItem).collect(toList()))
+        )
+    );
+  }
 
-        if (user.isPresent()) {
-            modelMap.put("user", new UserModel(user.get()));
-        } else {
-            modelMap.put("unknownUser", username);
-        }
-    }
+  private MenuItem chooseUserItem(String username) {
+    return new MenuItem(username, String.format("/user?choose=%s", username), "user.choose.desc");
+  }
 
-    private void populateUserMenu(ModelAndView modelAndView) {
-        var usernames = userRestService.findAllUsernames();
-        modelAndView.addObject("usersMenu", singletonList(
-                aMenuItem()
-                        .withName("menu.users.choose")
-                        .addAsChildren(usernames)
-                        .build()
-                )
-        );
-    }
-
-    private void populateDefaultUsers(ModelAndView modelAndView) {
-        var menuItems = menuFacade.fetchMenuItems(Name.of(menuNameUsers));
-        modelAndView.addObject("defaultUsers", menuItems);
-    }
+  private void populateDefaultUsers(ModelAndView modelAndView) {
+    var menuItems = menuFacade.fetchMenuItemsByName(JactorWebBeans.USERS_MENU_NAME);
+    modelAndView.addObject("defaultUsers", menuItems);
+  }
 }

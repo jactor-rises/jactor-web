@@ -1,6 +1,6 @@
-package com.gitlab.jactor.rises.web;
+package com.github.jactor.web;
 
-import com.gitlab.jactor.rises.web.interceptor.RequestInterceptor;
+import com.github.jactor.web.interceptor.RequestInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -22,72 +22,80 @@ import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
 @PropertySource("classpath:application.properties")
 public class JactorWebMvcConfiguration implements WebMvcConfigurer {
 
-    private final RequestInterceptor requestInterceptor;
-    private final String prefix;
-    private final String suffix;
+  private final RequestInterceptor requestInterceptor;
+  private final String prefix;
+  private final String suffix;
 
-    public JactorWebMvcConfiguration(
-            @Autowired RequestInterceptor requestInterceptor,
-            @Value("${spring.mvc.view.prefix}") String prefix,
-            @Value("${spring.mvc.view.suffix}") String suffix
-    ) {
-        this.requestInterceptor = requestInterceptor;
-        this.prefix = prefix;
-        this.suffix = suffix;
-    }
+  public JactorWebMvcConfiguration(
+      @Autowired RequestInterceptor requestInterceptor,
+      @Value("${spring.mvc.view.prefix}") String prefix,
+      @Value("${spring.mvc.view.suffix}") String suffix
+  ) {
+    this.requestInterceptor = requestInterceptor;
+    this.prefix = prefix;
+    this.suffix = suffix;
+  }
 
-    public @Bean ClassLoaderTemplateResolver templateResolver() {
-        ClassLoaderTemplateResolver templateResolver = new ClassLoaderTemplateResolver();
+  @Bean
+  public ClassLoaderTemplateResolver templateResolver() {
+    ClassLoaderTemplateResolver templateResolver = new ClassLoaderTemplateResolver();
 
-        templateResolver.setCacheable(false);
-        templateResolver.setCharacterEncoding("UTF-8");
+    templateResolver.setCacheable(false);
+    templateResolver.setCharacterEncoding("UTF-8");
 
-        templateResolver.setPrefix(prefix);
-        templateResolver.setSuffix(suffix);
+    templateResolver.setPrefix(prefix);
+    templateResolver.setSuffix(suffix);
 
-        templateResolver.setTemplateMode("HTML");
+    templateResolver.setTemplateMode("HTML");
 
-        return templateResolver;
-    }
+    return templateResolver;
+  }
 
-    public @Bean SpringTemplateEngine templateEngine() {
-        SpringTemplateEngine templateEngine = new SpringTemplateEngine();
-        templateEngine.setTemplateResolver(templateResolver());
+  @Bean
+  public SpringTemplateEngine templateEngine() {
+    SpringTemplateEngine templateEngine = new SpringTemplateEngine();
+    templateEngine.setTemplateResolver(templateResolver());
 
-        return templateEngine;
-    }
+    return templateEngine;
+  }
 
-    public @Bean ThymeleafViewResolver viewResolver() {
-        ThymeleafViewResolver thymeleafViewResolver = new ThymeleafViewResolver();
-        thymeleafViewResolver.setViewClass(ThymeleafView.class);
-        thymeleafViewResolver.setTemplateEngine(templateEngine());
+  @Bean
+  public ThymeleafViewResolver viewResolver() {
+    ThymeleafViewResolver thymeleafViewResolver = new ThymeleafViewResolver();
+    thymeleafViewResolver.setViewClass(ThymeleafView.class);
+    thymeleafViewResolver.setTemplateEngine(templateEngine());
 
-        return thymeleafViewResolver;
-    }
+    return thymeleafViewResolver;
+  }
 
-    public @Bean LocaleResolver localeResolver() {
-        return new CookieLocaleResolver();
-    }
+  @Bean
+  public LocaleResolver localeResolver() {
+    return new CookieLocaleResolver();
+  }
 
-    public @Bean LocaleChangeInterceptor localeChangeInterceptor() {
-        LocaleChangeInterceptor lci = new LocaleChangeInterceptor();
-        lci.setParamName("lang");
+  @Bean
+  public LocaleChangeInterceptor localeChangeInterceptor() {
+    LocaleChangeInterceptor lci = new LocaleChangeInterceptor();
+    lci.setParamName("lang");
 
-        return lci;
-    }
+    return lci;
+  }
 
-    public @Override void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry
-                .addResourceHandler("static/**")
-                .addResourceLocations("resources");
-    }
+  @Override
+  public void addResourceHandlers(ResourceHandlerRegistry registry) {
+    registry
+        .addResourceHandler("static/**")
+        .addResourceLocations("resources");
+  }
 
-    public @Override void configureViewResolvers(ViewResolverRegistry registry) {
-        registry.viewResolver(viewResolver());
-    }
+  @Override
+  public void configureViewResolvers(ViewResolverRegistry registry) {
+    registry.viewResolver(viewResolver());
+  }
 
-    public @Override void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(localeChangeInterceptor());
-        registry.addInterceptor(requestInterceptor);
-    }
+  @Override
+  public void addInterceptors(InterceptorRegistry registry) {
+    registry.addInterceptor(localeChangeInterceptor());
+    registry.addInterceptor(requestInterceptor);
+  }
 }
