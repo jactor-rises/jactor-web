@@ -3,6 +3,9 @@ on:
   push:
     branches:
       - '**'
+    paths:
+      - '.github/**'
+      - 'web/**'
 
 jobs:
 
